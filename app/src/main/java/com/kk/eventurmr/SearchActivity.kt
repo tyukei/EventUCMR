@@ -21,6 +21,7 @@ class SearchActivity : BaseActivity() {
         setupSearchResultsListView()
         setupSearchEditText()
         setupMenuBar()
+        highlightSelectedIcon(R.id.searchImageView)
     }
 
     private fun setupSearchEditText() {

@@ -18,6 +18,7 @@ class NotifyActivity : BaseActivity() {
         initializeViews()
         populateListView()
         setupMenuBar()
+        highlightSelectedIcon(R.id.notificationImageView)
     }
 
     private fun initializeViews() {

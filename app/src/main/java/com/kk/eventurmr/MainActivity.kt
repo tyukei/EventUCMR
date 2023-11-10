@@ -13,7 +13,9 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main) // Use the correct layout file name here
         setupMenuBar()
+        highlightSelectedIcon(R.id.homeImageView)
         setupListView()
+
     }
 
     private fun setupListView() {

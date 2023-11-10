@@ -18,6 +18,7 @@ class FavoriteActivity : BaseActivity() {
         initializeViews()
         setupFavoritesListView()
         setupMenuBar()
+        highlightSelectedIcon(R.id.favoriteImageView)
     }
 
     private fun initializeViews() {
