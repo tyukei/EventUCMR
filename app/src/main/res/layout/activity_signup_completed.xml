@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Include the title bar -->
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/title"/>
+
+    <!-- Profile Section Title -->
+    <TextView
+        android:id="@+id/profileSectionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleBar"
+        android:text="Profile"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Sign Up Complete Message -->
+    <TextView
+        android:id="@+id/signupCompleteMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profileSectionTitle"
+        android:text="Sign Up Complete!"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Name Display -->
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signupCompleteMessage"
+        android:text="Name"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Email Display -->
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameTextView"
+        android:text="Email"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Add Event Button -->
+    <Button
+        android:id="@+id/addEventButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Event"
+        android:layout_below="@id/emailTextView"
+        android:textColor="#FFF"
+        android:layout_marginTop="24dp" />
+
+    <!-- Include the menu bar -->
+    <include
+        android:id="@+id/menuBarLinearLayout"
+        layout="@layout/menuebar"/>
+</RelativeLayout>

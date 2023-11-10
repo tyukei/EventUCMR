@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Include the title bar -->
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/title"/>
+
+    <!-- Content of the event detail -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/light_blue"
+            android:layout_margin="16sp"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/eventDetailsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="64sp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/eventDetailTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Event Details"
+                    android:textStyle="bold"
+                    android:textSize="32sp"/>
+
+                <ImageView
+                    android:id="@+id/heartIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_favorite"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"/>
+            </LinearLayout>
+
+            <!-- Location -->
+            <TextView
+                android:id="@+id/locationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location\nGranite Pass"
+                android:layout_below="@id/eventDetailsTitle"
+                android:layout_marginTop="16dp" />
+
+            <!-- Date & Time -->
+            <TextView
+                android:id="@+id/dateTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date Time\nDec 9, 2023 (Saturday)\n1 pm - 3 pm"
+                android:layout_below="@id/locationTextView"
+                android:layout_marginTop="8dp" />
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aliquam dignissim blandit est, in dictum tortor gravida eget..."
+                android:layout_below="@id/dateTimeTextView"
+                android:layout_marginTop="8dp" />
+
+
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Register Here"
+                android:layout_marginTop="24dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Include the menu bar -->
+    <include
+        android:id="@+id/menuBarLinearLayout"
+        layout="@layout/menuebar" />
+</RelativeLayout>

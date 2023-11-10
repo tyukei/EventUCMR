@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Include the title bar -->
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/title" />
+
+    <!-- Favorite -->
+    <TextView
+        android:id="@+id/favoriteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleBar"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Upcoming Event"
+        android:background="@color/blue"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+
+    <!-- List for displaying search results -->
+    <ListView
+        android:id="@+id/searchResultsListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/favoriteTextView"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp"
+        android:padding="8dp" />
+
+    <!-- Include the menu bar -->
+    <include
+        android:id="@+id/menuBarLinearLayout"
+        layout="@layout/menuebar" />
+    />
+
+</RelativeLayout>
