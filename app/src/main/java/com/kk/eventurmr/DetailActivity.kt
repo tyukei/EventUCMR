@@ -3,18 +3,19 @@ package com.kk.eventurmr
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 
-class DetailActivity : BaseActivity()  {
-
+class DetailActivity : BaseActivity() {
+    private lateinit var title: TextView
     private lateinit var heartIcon: ImageView
     private lateinit var registerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail) // Replace with your actual layout resource name
-
+        title = findViewById(R.id.eventDetailTitle)
+        title.text = intent.getStringExtra("eventName") ?: "None"
         heartIcon = findViewById(R.id.heartIcon)
         registerButton = findViewById(R.id.registerButton)
 
