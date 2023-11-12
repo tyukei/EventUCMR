@@ -1,35 +1,47 @@
 package com.kk.eventurmr
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
+import com.kk.data.AppDatabase
+import kotlinx.coroutines.*
 
-class DetailActivity : BaseActivity() {
-    private lateinit var title: TextView
-    private lateinit var heartIcon: ImageView
-    private lateinit var registerButton: Button
+class DetailActivity : AppCompatActivity() {
+    private lateinit var titleTextView: TextView
+    private lateinit var locationTextView: TextView
+    private lateinit var dateTimeTextView: TextView
+    private lateinit var descriptionTextView: TextView
+
+    // Assuming you have a singleton pattern for the database, else initialize it here
+    private val db by lazy {
+        Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "event-database"
+        ).build()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail) // Replace with your actual layout resource name
-        title = findViewById(R.id.eventDetailTitle)
-        title.text = intent.getStringExtra("eventName") ?: "None"
-        heartIcon = findViewById(R.id.heartIcon)
-        registerButton = findViewById(R.id.registerButton)
+        setContentView(R.layout.activity_detail)
 
-        heartIcon.setOnClickListener {
-            // Handle heart (favorite) icon click
-            // For example, toggle the 'favorite' state of the event
-            Toast.makeText(this, "Heart clicked!", Toast.LENGTH_SHORT).show()
-        }
+        titleTextView = findViewById(R.id.eventDetailTitle)
+        locationTextView = findViewById(R.id.locationTextView)
+        dateTimeTextView = findViewById(R.id.dateTimeTextView)
+        descriptionTextView = findViewById(R.id.descriptionTextView)
 
-        registerButton.setOnClickListener {
-            // Handle register button click
-            // For example, navigate to a registration form or activity
-            Toast.makeText(this, "Register button clicked!", Toast.LENGTH_SHORT).show()
+        val eventId = intent.getIntExtra("eventId", -1)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val event = db.eventDao().getEventById(eventId)
+            event?.let {
+                withContext(Dispatchers.Main) {
+                    titleTextView.text = it.name
+                    locationTextView.text = it.location
+                    dateTimeTextView.text = it.dateTime
+                    descriptionTextView.text = it.description
+                }
+            }
         }
-        setupMenuBar()
     }
 }
