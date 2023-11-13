@@ -2,12 +2,14 @@ package com.kk.eventurmr
 
 import android.os.Bundle
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import com.kk.data.AppDatabase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : BaseActivity() {
     private lateinit var titleTextView: TextView
     private lateinit var locationTextView: TextView
     private lateinit var dateTimeTextView: TextView
@@ -30,8 +32,9 @@ class DetailActivity : AppCompatActivity() {
         dateTimeTextView = findViewById(R.id.dateTimeTextView)
         descriptionTextView = findViewById(R.id.descriptionTextView)
 
+        setupMenuBar()
+        highlightSelectedIcon(R.id.homeImageView)
         val eventId = intent.getIntExtra("eventId", -1)
-
         CoroutineScope(Dispatchers.IO).launch {
             val event = db.eventDao().getEventById(eventId)
             event?.let {

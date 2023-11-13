@@ -78,10 +78,27 @@ class MainActivity : BaseActivity() {
             description = "This is a sample event.",
             isfavorite = false
         )
+        val newEvent2 = Event(
+            id = 2,
+            name = "Sample Event2",
+            location = "Sample Location2",
+            dateTime = "2023-01-01 10:00",
+            description = "This is a sample event2.",
+            isfavorite = false
+        )
+        val newEvent3 = Event(
+            id = 3,
+            name = "Sample Event3",
+            location = "Sample Location3",
+            dateTime = "2023-01-01 10:00",
+            description = "This is a sample event3.",
+            isfavorite = false
+        )
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                db.eventDao().insertEvent(newEvent)
+                val events = listOf(newEvent, newEvent2, newEvent3)
+                db.eventDao().insertEvents(events)
             } catch (e: Exception) {
                 Log.e(TAG, "Error adding event", e)
             }
