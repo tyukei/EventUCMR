@@ -6,7 +6,7 @@
     <!-- Include the title bar -->
     <include
         android:id="@+id/titleBar"
-        layout="@layout/title"/>
+        layout="@layout/title" />
 
     <!-- Content of the event detail -->
     <ScrollView
@@ -17,17 +17,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/light_blue"
             android:layout_margin="16sp"
+            android:background="@color/light_blue"
+            android:orientation="vertical"
             android:padding="16dp">
 
             <LinearLayout
                 android:id="@+id/eventDetailsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="64sp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/eventDetailTitle"
@@ -35,16 +35,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Event Details"
-                    android:textStyle="bold"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/heartIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_favorite"
-                    android:layout_gravity="center_vertical"
-                    android:padding="8dp"/>
+                <ImageButton
+                    android:id="@+id/favoriteImageButton"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:background="@drawable/ic_favorite" />
             </LinearLayout>
 
             <!-- Location -->
@@ -52,36 +50,35 @@
                 android:id="@+id/locationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location\nGranite Pass"
                 android:layout_below="@id/eventDetailsTitle"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:text="Location\nGranite Pass" />
 
             <!-- Date & Time -->
             <TextView
                 android:id="@+id/dateTimeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date Time\nDec 9, 2023 (Saturday)\n1 pm - 3 pm"
                 android:layout_below="@id/locationTextView"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:text="Date Time\nDec 9, 2023 (Saturday)\n1 pm - 3 pm" />
 
             <!-- Description -->
             <TextView
                 android:id="@+id/descriptionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aliquam dignissim blandit est, in dictum tortor gravida eget..."
                 android:layout_below="@id/dateTimeTextView"
-                android:layout_marginTop="8dp" />
-
+                android:layout_marginTop="8dp"
+                android:text="Aliquam dignissim blandit est, in dictum tortor gravida eget..." />
 
 
             <Button
                 android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Register Here"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                android:text="Register Here" />
         </LinearLayout>
     </ScrollView>
 

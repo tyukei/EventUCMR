@@ -1,7 +1,10 @@
 package com.kk.eventurmr
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -10,10 +13,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class DetailActivity : BaseActivity() {
+    private val TAG = "DetailActivity"
     private lateinit var titleTextView: TextView
     private lateinit var locationTextView: TextView
     private lateinit var dateTimeTextView: TextView
     private lateinit var descriptionTextView: TextView
+    private lateinit var favriteButton: ImageButton
+
+    private var eventId: Int = -1
+    private var isfavorite: Boolean = false
 
     // Assuming you have a singleton pattern for the database, else initialize it here
     private val db by lazy {
@@ -31,10 +39,13 @@ class DetailActivity : BaseActivity() {
         locationTextView = findViewById(R.id.locationTextView)
         dateTimeTextView = findViewById(R.id.dateTimeTextView)
         descriptionTextView = findViewById(R.id.descriptionTextView)
-
+        favriteButton = findViewById(R.id.favoriteImageButton)
+        favriteButton.setOnClickListener {
+            onClickFavorite()
+        }
         setupMenuBar()
         highlightSelectedIcon(R.id.homeImageView)
-        val eventId = intent.getIntExtra("eventId", -1)
+        eventId = intent.getIntExtra("eventId", -1)
         CoroutineScope(Dispatchers.IO).launch {
             val event = db.eventDao().getEventById(eventId)
             event?.let {
@@ -43,8 +54,40 @@ class DetailActivity : BaseActivity() {
                     locationTextView.text = it.location
                     dateTimeTextView.text = it.dateTime
                     descriptionTextView.text = it.description
+                    isfavorite = it.isfavorite
+                    setupHeartIcon()
+                    Log.d(TAG, "Event: $it")
                 }
             }
+        }
+    }
+
+    private fun onClickFavorite() {
+        // TODO Update the event.favorite to true
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                if (isfavorite) {
+                    db.eventDao().updateUnFavorite(eventId)
+                    isfavorite = false
+                    favriteButton.setBackgroundResource(R.drawable.ic_favorite)
+                } else {
+                    db.eventDao().updateFavorite(eventId)
+                    isfavorite = true
+                    favriteButton.setBackgroundResource(R.drawable.ic_favorite_selected)
+                }
+                setupHeartIcon()
+            } catch (e: Exception) {
+                Log.e(TAG, "Error adding event", e)
+            }
+        }
+    }
+
+    private fun setupHeartIcon() {
+        if (isfavorite) {
+            favriteButton.setBackgroundResource(R.drawable.ic_favorite_selected)
+        } else {
+            favriteButton.setBackgroundResource(R.drawable.ic_favorite)
         }
     }
 }

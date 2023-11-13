@@ -27,13 +27,15 @@ class FavoriteActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_favorite) // Use the correct layout resource name
+        setContentView(R.layout.activity_favorite)
 
         initializeViews()
         setupFavoritesListView()
         setupMenuBar()
         highlightSelectedIcon(R.id.favoriteImageView)
+        getFavoriteEvent()
     }
+
 
     private fun initializeViews() {
         favoriteTextView = findViewById(R.id.favoriteTextView)

@@ -13,6 +13,15 @@ interface EventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEvents(events: List<Event>)
 
+    // TODO Update event.favorite to true
+    @Query("UPDATE Event SET isfavorite = 'true' WHERE id = :id")
+    fun updateFavorite(id: Int)
+
+    // TODO Update event.favorite to false
+    @Query("UPDATE Event SET isfavorite = 'false' WHERE id = :id")
+    fun updateUnFavorite(id: Int)
+
+
     @Query("SELECT * FROM event")
     suspend fun getAllEvents(): List<Event>
 
