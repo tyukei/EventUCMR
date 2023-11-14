@@ -1,12 +1,13 @@
 package com.kk.eventurmr
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
-
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
@@ -69,7 +70,11 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun addEventToDatabase() {
+//        val timestamp1 = TimeUtil.getTimeStamp("2023-11-01 10:00")
+//        val timestamp2 = TimeUtil.getTimeStamp("2023-11-02 10:00")
+//        val timestamp3 = TimeUtil.getTimeStamp("2023-11-03 10:00")
         val newEvent = Event(
             id = 1,
             name = "Sample Event",
