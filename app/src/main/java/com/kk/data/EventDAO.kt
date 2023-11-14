@@ -14,11 +14,11 @@ interface EventDao {
     fun insertEvents(events: List<Event>)
 
     // TODO Update event.favorite to true
-    @Query("UPDATE Event SET isfavorite = 'true' WHERE id = :id")
+    @Query("UPDATE Event SET isfavorite = 1 WHERE id = :id")
     fun updateFavorite(id: Int)
 
     // TODO Update event.favorite to false
-    @Query("UPDATE Event SET isfavorite = 'false' WHERE id = :id")
+    @Query("UPDATE Event SET isfavorite = 0 WHERE id = :id")
     fun updateUnFavorite(id: Int)
 
 
@@ -28,7 +28,7 @@ interface EventDao {
     @Query("SELECT * FROM Event WHERE id = :id")
     fun getEventById(id: Int): Event?
 
-    @Query("SELECT * FROM Event WHERE isfavorite = 'true'")
+    @Query("SELECT * FROM Event WHERE isfavorite = 1")
     fun getFavoriteEvents(): List<Event>
 
 }

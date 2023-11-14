@@ -14,7 +14,7 @@
         android:padding="16dp"
         android:text="UCMERCED"
         android:textColor="#EFBA1D"
-        android:textSize="64sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
