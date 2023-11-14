@@ -3,10 +3,16 @@ package com.kk.eventurmr
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
+import androidx.room.Room
+import com.kk.data.AppDatabase
+import com.kk.data.Event
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchActivity : BaseActivity() {
 
@@ -15,9 +21,18 @@ class SearchActivity : BaseActivity() {
     private lateinit var adapter: ArrayAdapter<String>
 
     // Original full list of items
-    private val allItems = arrayListOf("Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape")
+    private val allItems = mutableListOf<String>()
+    private var allEvents = listOf<Event>()
+
     // List for filtered items
-    private val filteredItems = ArrayList<String>(allItems)
+    private val filteredItems = ArrayList<String>()
+
+    private val db by lazy {
+        Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "event-database"
+        ).build()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +40,25 @@ class SearchActivity : BaseActivity() {
 
         searchEditText = findViewById(R.id.searchEditText)
         searchResultsListView = findViewById(R.id.searchResultsListView)
-
-        setupSearchResultsListView()
-        setupSearchEditText()
+        initlist()
         setupMenuBar()
         highlightSelectedIcon(R.id.searchImageView)
     }
+
+    private fun initlist() {
+        CoroutineScope(Dispatchers.IO).launch {
+            allEvents = db.eventDao().getAllEvents()
+            val eventNames = allEvents.map { it.name }
+            withContext(Dispatchers.Main) {
+                allItems.clear()
+                allItems.addAll(eventNames)
+                filteredItems.addAll(allItems)
+                setupSearchResultsListView()
+                setupSearchEditText()
+            }
+        }
+    }
+
 
     private fun setupSearchEditText() {
         searchEditText.addTextChangedListener(object : TextWatcher {
