@@ -1,46 +1,101 @@
 package com.kk.eventurmr
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
+import com.kk.data.AppDatabase
+import com.kk.data.Event
+import com.kk.data.TimeUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class NotifyActivity : BaseActivity() {
 
-    private lateinit var upcomingEventsListView: ListView
-    private lateinit var upcomingEventTextView: TextView
+    private lateinit var notifyListView: ListView
 
+    private val db by lazy {
+        Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "event-database"
+        ).build()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notify) // make sure to use the correct layout file name
-
         initializeViews()
-        populateListView()
+        setuptNotifyListView()
         setupMenuBar()
         highlightSelectedIcon(R.id.notificationImageView)
+        getNotifyEvent()
     }
 
     private fun initializeViews() {
-        upcomingEventTextView = findViewById(R.id.favoriteTextView) // If this TextView is not for favorites, consider renaming the ID in your XML and here in Kotlin
-        upcomingEventsListView = findViewById(R.id.searchResultsListView)
-
-        // Configure the TextView if needed
-        // For example, you might want to set an OnClickListener to perform an action when the text is clicked
+        notifyListView = findViewById(R.id.notifyListView)
     }
 
-    private fun populateListView() {
-        // Placeholder data for the ListView
-        val events = arrayOf("Event 1", "Event 2", "Event 3") // Replace with your actual event data
+    private fun setuptNotifyListView() {
+        // Initial dummy data for the list view
+        val notifyItems = mutableListOf("Favorite 1", "Favorite 2", "Favorite 3")
 
-        // Create an ArrayAdapter using the default list item layout and the events data
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, events)
-        upcomingEventsListView.adapter = adapter
+        // Adapter setup
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, notifyItems)
+        notifyListView.adapter = adapter
 
-        // Set up the item click listener for the ListView
-        upcomingEventsListView.setOnItemClickListener { _, _, position, _ ->
-            // You can handle the event click here
-            // For example, you might want to open a new Activity with the event details
+        // Item click listener
+        notifyListView.setOnItemClickListener { _, _, position, _ ->
+            val selectedItem = notifyItems[position]
+            // Handle the list item click, e.g., navigate to a detail view
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getNotifyEvent() {
+        // get today like 2023-10-10-10:10
+        val today = LocalDateTime.now()
+        val twoWeek = LocalDateTime.now().plusWeeks(2)
+        val formatToday = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val strToday = formatToday.format(today)
+        val strFormat = format.format(twoWeek)
+        val intToday = TimeUtil.getDateInt(strToday)
+        val intFormat = TimeUtil.getDateInt(strFormat)
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val within2weekEvent = db.eventDao().getEventByTime(intToday, intFormat)
+                withContext(Dispatchers.Main) {
+                    updateListView(within2weekEvent)
+                }
+            } catch (e: Exception) {
+                // Log the error or update the UI accordingly
+                withContext(Dispatchers.Main) {
+                    // Show error message to the user
+                }
+            }
+        }
+    }
+
+    private fun updateListView(notifyEvents: List<Event>) {
+        val adapter = notifyListView.adapter as ArrayAdapter<String>
+
+        // Convert each Event object to a String
+        val eventStrings = notifyEvents.map { event ->
+            // Assuming Event class has a 'name' property. Modify as per your Event class structure.
+            event.name
+        }
+
+        adapter.clear()
+        adapter.addAll(eventStrings)
+        adapter.notifyDataSetChanged()
+    }
+
+
 }

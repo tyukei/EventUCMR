@@ -53,7 +53,7 @@ class DetailActivity : BaseActivity() {
                 withContext(Dispatchers.Main) {
                     titleTextView.text = it.name
                     locationTextView.text = it.location
-                    dateTimeTextView.text = it.dateTime
+                    dateTimeTextView.text = it.dateTime.toString()
                     descriptionTextView.text = it.description
                     isfavorite = it.isfavorite
                     Log.d(TAG, "heart:$isfavorite")

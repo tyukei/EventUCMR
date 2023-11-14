@@ -10,7 +10,7 @@
 
     <!-- Favorite -->
     <TextView
-        android:id="@+id/favoriteTextView"
+        android:id="@+id/searchTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleBar"
@@ -18,20 +18,20 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@color/blue"
         android:gravity="center"
         android:padding="16dp"
         android:text="Upcoming Event"
-        android:background="@color/blue"
         android:textSize="32sp"
         android:textStyle="bold" />
 
 
     <!-- List for displaying search results -->
     <ListView
-        android:id="@+id/searchResultsListView"
+        android:id="@+id/notifyListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/favoriteTextView"
+        android:layout_below="@id/searchTextView"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.5dp"
         android:padding="8dp" />

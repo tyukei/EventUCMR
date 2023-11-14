@@ -8,7 +8,7 @@ data class Event(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val name: String,
     val location: String,
-    val dateTime: String,
+    val dateTime: Int,
     val description: String,
     var isfavorite: Boolean
 )

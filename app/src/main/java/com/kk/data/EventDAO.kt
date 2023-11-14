@@ -21,7 +21,6 @@ interface EventDao {
     @Query("UPDATE Event SET isfavorite = 0 WHERE id = :id")
     fun updateUnFavorite(id: Int)
 
-
     @Query("SELECT * FROM event")
     suspend fun getAllEvents(): List<Event>
 
@@ -30,5 +29,13 @@ interface EventDao {
 
     @Query("SELECT * FROM Event WHERE isfavorite = 1")
     fun getFavoriteEvents(): List<Event>
+
+    // get timestamp less than int
+    @Query("SELECT * FROM Event WHERE :today <= dateTime AND dateTime < :timestamp")
+    fun getEventByTime(today: Int, timestamp: Int): List<Event>
+
+    // Clear all events from the database
+    @Query("DELETE FROM Event")
+    fun clearAllEvents()
 
 }

@@ -1,19 +1,19 @@
 package com.kk.eventurmr
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
+import com.kk.data.TimeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 class MainActivity : BaseActivity() {
     private val TAG = "MainActivity"
@@ -24,7 +24,8 @@ class MainActivity : BaseActivity() {
         Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "event-database"
-        ).build()
+        )
+            .build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +36,8 @@ class MainActivity : BaseActivity() {
         setupListView()
         setupMenuBar()
         highlightSelectedIcon(R.id.homeImageView)
-        //addEventToDatabase()
+        //clearAllEvents()
+        addEventToDatabase()
     }
 
     private fun setupListView() {
@@ -70,16 +72,30 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    // Clear db
+    private fun clearAllEvents() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                db.eventDao().clearAllEvents()
+            } catch (e: Exception) {
+                Log.e(TAG, "Error clearing events from database", e)
+            }
+        }
+    }
+
+
     private fun addEventToDatabase() {
 //        val timestamp1 = TimeUtil.getTimeStamp("2023-11-01 10:00")
 //        val timestamp2 = TimeUtil.getTimeStamp("2023-11-02 10:00")
 //        val timestamp3 = TimeUtil.getTimeStamp("2023-11-03 10:00")
+        val timestamp1 = TimeUtil.getDateInt("2023-11-20 10:00")
+        val timestamp2 = TimeUtil.getDateInt("2023-11-30 10:00")
+        val timestamp3 = TimeUtil.getDateInt("2023-12-01 10:00")
         val newEvent = Event(
             id = 1,
             name = "Sample Event",
             location = "Sample Location",
-            dateTime = "2023-01-01 10:00",
+            dateTime = timestamp1,
             description = "This is a sample event.",
             isfavorite = false
         )
@@ -87,7 +103,7 @@ class MainActivity : BaseActivity() {
             id = 2,
             name = "Sample Event2",
             location = "Sample Location2",
-            dateTime = "2023-01-01 10:00",
+            dateTime = timestamp2,
             description = "This is a sample event2.",
             isfavorite = false
         )
@@ -95,7 +111,7 @@ class MainActivity : BaseActivity() {
             id = 3,
             name = "Sample Event3",
             location = "Sample Location3",
-            dateTime = "2023-01-01 10:00",
+            dateTime = timestamp3,
             description = "This is a sample event3.",
             isfavorite = false
         )

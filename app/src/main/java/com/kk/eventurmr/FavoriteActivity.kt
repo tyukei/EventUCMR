@@ -15,7 +15,6 @@ import kotlinx.coroutines.withContext
 class FavoriteActivity : BaseActivity() {
 
     private lateinit var favoritesListView: ListView
-    private lateinit var favoriteTextView: TextView
 
 
     private val db by lazy {
@@ -38,13 +37,7 @@ class FavoriteActivity : BaseActivity() {
 
 
     private fun initializeViews() {
-        favoriteTextView = findViewById(R.id.favoriteTextView)
         favoritesListView = findViewById(R.id.searchResultsListView)
-
-        // Setting up the favorite text view click listener if needed
-        favoriteTextView.setOnClickListener {
-            // Handle the bookmark/favorite click action here
-        }
     }
 
     private fun setupFavoritesListView() {
