@@ -6,62 +6,65 @@
     <!-- Include the title bar -->
     <include
         android:id="@+id/titleBar"
-        layout="@layout/title"/>
+        layout="@layout/title" />
 
     <!-- Profile title -->
     <TextView
-        android:id="@+id/profileTitleTextView"
+        android:id="@+id/signInTitleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleBar"
+        android:layout_margin="8dp"
+        android:background="@color/blue"
         android:gravity="center"
-        android:text="Profile"
-        android:textSize="32sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp" />
-
-    <!-- Sign In section -->
-    <TextView
-        android:id="@+id/signUpLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text="Sign In"
-        android:gravity="center"
-        android:layout_below="@id/profileTitleTextView"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
 
     <!-- Email input -->
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/signInemailEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80sp"
+        android:layout_below="@id/signInTitleTextView"
+        android:layout_marginHorizontal="16sp"
+        android:layout_marginBottom="8dp"
         android:hint="UCM Email"
-        android:layout_below="@id/signUpLabel"
-        android:inputType="textEmailAddress"
-        android:layout_marginBottom="8dp" />
+        android:inputType="textEmailAddress" />
 
     <!-- Password input -->
     <EditText
-        android:id="@+id/passwordEditText"
+        android:id="@+id/signInpasswordEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80sp"
+        android:layout_below="@id/signInemailEditText"
+        android:layout_marginHorizontal="16sp"
+        android:layout_marginBottom="16dp"
         android:hint="Password"
-        android:layout_below="@id/emailEditText"
-        android:inputType="textPassword"
-        android:layout_marginBottom="16dp" />
+        android:inputType="textPassword" />
 
     <!-- Sign In button -->
     <Button
-        android:id="@+id/signUpButton"
+        android:id="@+id/signInButton"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:layout_below="@id/signInpasswordEditText"
+        android:layout_marginHorizontal="16sp"
+        android:layout_marginTop="24dp"
+        android:text="Sign In"
+        android:textColor="#FFF"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/signInToSignUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:layout_below="@id/passwordEditText"
-        android:textColor="#FFF" />
+        android:layout_below="@id/signInButton"
+        android:layout_marginHorizontal="16sp"
+        android:text="Go to Sign Up"
+        android:textColor="@color/dark_blue"
+        android:textSize="24sp" />
 
-    <!-- Include the menu bar -->
-    <include
-        android:id="@+id/menuBarLinearLayout"
-        layout="@layout/menuebar"/>
 </RelativeLayout>

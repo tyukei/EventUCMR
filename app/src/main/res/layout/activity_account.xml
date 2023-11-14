@@ -6,19 +6,22 @@
     <!-- Include the title bar -->
     <include
         android:id="@+id/titleBar"
-        layout="@layout/title"/>
+        layout="@layout/title" />
 
     <!-- Profile Section Title -->
+
     <TextView
         android:id="@+id/profileSectionTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleBar"
-        android:text="Profile"
+        android:layout_margin="8dp"
+        android:background="@color/blue"
         android:gravity="center"
-        android:textSize="24sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp" />
+        android:padding="16dp"
+        android:text="Profile"
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
 
     <!-- Name Display -->
@@ -27,9 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/profileSectionTitle"
-        android:text="Name"
+        android:layout_marginBottom="8dp"
+        android:textSize="32sp"
         android:gravity="center"
-        android:layout_marginBottom="8dp" />
+        android:text="Name" />
 
     <!-- Email Display -->
     <TextView
@@ -37,22 +41,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nameTextView"
-        android:text="Email"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:textSize="24sp"
+        android:text="Email" />
 
     <!-- Add Event Button -->
     <Button
         android:id="@+id/addEventButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Event"
+        android:layout_height="80sp"
         android:layout_below="@id/emailTextView"
-        android:textColor="#FFF"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="16sp"
+        android:text="Add Event"
+        android:textSize="24sp"
+        android:textColor="#FFF" />
 
     <!-- Include the menu bar -->
     <include
         android:id="@+id/menuBarLinearLayout"
-        layout="@layout/menuebar"/>
+        layout="@layout/menuebar" />
 </RelativeLayout>
