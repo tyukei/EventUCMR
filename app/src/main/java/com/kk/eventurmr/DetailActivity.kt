@@ -1,5 +1,7 @@
 package com.kk.eventurmr
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -12,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
 class DetailActivity : BaseActivity() {
     private val TAG = "DetailActivity"
     private lateinit var titleTextView: TextView
@@ -22,6 +25,7 @@ class DetailActivity : BaseActivity() {
 
     private var eventId: Int = -1
     private var isfavorite: Boolean = false
+    private var locationStr: String = "Kyoto"
 
     // Assuming you have a singleton pattern for the database, else initialize it here
     private val db by lazy {
@@ -35,6 +39,18 @@ class DetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        initView()
+        setupMenuBar()
+        highlightSelectedIcon(R.id.homeImageView)
+        setDB()
+        locationTextView.setOnClickListener {
+            val uri = Uri.parse("geo:0,0?q=$locationStr")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+    }
+
+    private fun initView() {
         titleTextView = findViewById(R.id.eventDetailTitle)
         locationTextView = findViewById(R.id.locationTextView)
         dateTimeTextView = findViewById(R.id.dateTimeTextView)
@@ -43,8 +59,9 @@ class DetailActivity : BaseActivity() {
         favriteButton.setOnClickListener {
             onClickFavorite()
         }
-        setupMenuBar()
-        highlightSelectedIcon(R.id.homeImageView)
+    }
+
+    private fun setDB() {
         eventId = intent.getIntExtra("eventId", -1)
         CoroutineScope(Dispatchers.IO).launch {
             val event = db.eventDao().getEventById(eventId)
@@ -53,6 +70,7 @@ class DetailActivity : BaseActivity() {
                 withContext(Dispatchers.Main) {
                     titleTextView.text = it.name
                     locationTextView.text = it.location
+                    locationStr = it.location
                     dateTimeTextView.text = it.dateTime.toString()
                     descriptionTextView.text = it.description
                     isfavorite = it.isfavorite

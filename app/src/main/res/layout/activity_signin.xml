@@ -31,7 +31,7 @@
         android:layout_below="@id/signInTitleTextView"
         android:layout_marginHorizontal="16sp"
         android:layout_marginBottom="8dp"
-        android:hint="UCM Email"
+        android:hint="Email"
         android:inputType="textEmailAddress" />
 
     <!-- Password input -->

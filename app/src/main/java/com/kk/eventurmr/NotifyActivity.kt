@@ -61,11 +61,11 @@ class NotifyActivity : BaseActivity() {
     private fun getNotifyEvent() {
         // get today like 2023-10-10-10:10
         val today = LocalDateTime.now()
-        val twoWeek = LocalDateTime.now().plusWeeks(2)
+        val fourWeek = LocalDateTime.now().plusWeeks(4)
         val formatToday = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val strToday = formatToday.format(today)
-        val strFormat = format.format(twoWeek)
+        val strFormat = format.format(fourWeek)
         val intToday = TimeUtil.getDateInt(strToday)
         val intFormat = TimeUtil.getDateInt(strFormat)
         lifecycleScope.launch(Dispatchers.IO) {

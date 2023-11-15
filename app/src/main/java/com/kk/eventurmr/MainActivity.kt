@@ -94,7 +94,7 @@ class MainActivity : BaseActivity() {
         val newEvent = Event(
             id = 1,
             name = "Sample Event",
-            location = "Sample Location",
+            location = "UCMerced",
             dateTime = timestamp1,
             description = "This is a sample event.",
             isfavorite = false
@@ -102,7 +102,7 @@ class MainActivity : BaseActivity() {
         val newEvent2 = Event(
             id = 2,
             name = "Sample Event2",
-            location = "Sample Location2",
+            location = "Tokyo Station",
             dateTime = timestamp2,
             description = "This is a sample event2.",
             isfavorite = false
@@ -110,7 +110,7 @@ class MainActivity : BaseActivity() {
         val newEvent3 = Event(
             id = 3,
             name = "Sample Event3",
-            location = "Sample Location3",
+            location = "Oosaka castle",
             dateTime = timestamp3,
             description = "This is a sample event3.",
             isfavorite = false
