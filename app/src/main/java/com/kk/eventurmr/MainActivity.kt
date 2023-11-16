@@ -37,7 +37,7 @@ class MainActivity : BaseActivity() {
         setupMenuBar()
         highlightSelectedIcon(R.id.homeImageView)
         //clearAllEvents()
-        addEventToDatabase()
+        //addEventToDatabase()
     }
 
     private fun setupListView() {
