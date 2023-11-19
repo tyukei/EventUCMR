@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import com.kk.data.Event
 import com.kk.eventurmr.R
@@ -16,7 +17,8 @@ class EventAdapter(context: Context, events: List<Event>) : ArrayAdapter<Event>(
 
         view.findViewById<TextView>(R.id.eventTitle).text = event?.name
         view.findViewById<TextView>(R.id.eventDescription).text = event?.description
-        view.findViewById<TextView>(R.id.eventMap).text = event?.location
+        // ImageViewへのキャストを修正
+        view.findViewById<ImageView>(R.id.eventMap) // ここは画像を設定する場所かもしれません
 
         return view
     }

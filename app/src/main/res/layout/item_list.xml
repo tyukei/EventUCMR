@@ -41,13 +41,13 @@
                 android:text="MM/DD"
                 android:textSize="24sp" />
 
-            <Button
+            <ImageView
                 android:id="@+id/eventMap"
                 android:layout_width="30sp"
                 android:layout_height="30sp"
                 android:layout_gravity="right"
                 android:layout_marginStart="20sp"
-                android:background="@drawable/ic_pin" />
+                android:src="@drawable/ic_pin" />
 
         </LinearLayout>
 

@@ -46,23 +46,26 @@ class MainActivity : BaseActivity() {
 
         lifecycleScope.launch {
             try {
-                // データベースからイベントを取得してListViewにセットする
                 val events = getEventsFromDatabase()
-                // CoroutineScopeの外でMainActivityのContextを使用
-                val adapter = EventAdapter(this@MainActivity, events)
-                eventsListView.adapter = adapter
 
-                eventsListView.setOnItemClickListener { _, _, position, _ ->
-                    val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                    intent.putExtra("eventId", events[position].id) // イベントのIDを渡す
-                    startActivity(intent)
+                // UIスレッドでアダプター設定
+                withContext(Dispatchers.Main) {
+                    val adapter = EventAdapter(this@MainActivity, events)
+                    eventsListView.adapter = adapter
+
+                    eventsListView.setOnItemClickListener { _, _, position, _ ->
+                        Log.d(TAG, "Item clicked: ${events[position].name}")
+                        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                        intent.putExtra("eventId", events[position].id)
+                        startActivity(intent)
+                    }
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching events from database", e)
-                // Handle the error appropriately
             }
         }
     }
+
 
 
     // データベースからイベントを取得する非同期関数

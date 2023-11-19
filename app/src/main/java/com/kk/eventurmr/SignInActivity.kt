@@ -37,7 +37,10 @@ class SignInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signin) // Set the content view to the sign-in layou
         setupViews()
         signInButton.setOnClickListener {
-            checkIfUserIsSignedIn()
+            //checkIfUserIsSignedIn()
+            val intent = intent
+            intent.setClass(this@SignInActivity, MainActivity::class.java)
+            startActivity(intent)
         }
         signUpButton.setOnClickListener {
             val intent = intent
@@ -89,6 +92,7 @@ class SignInActivity : AppCompatActivity() {
                                 .show()
                         }
                     }
+
                     password -> {
                         val id = db.userDao().getIdByEmail(email)
                         UserId.id = id!!
@@ -97,10 +101,15 @@ class SignInActivity : AppCompatActivity() {
                         intent.setClass(this@SignInActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
+
                     else -> {
                         Log.d(TAG, "Password: $password")
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(this@SignInActivity, "Wrong password", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                this@SignInActivity,
+                                "Wrong password",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }

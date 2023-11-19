@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
+import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -73,17 +74,8 @@ class FavoriteActivity : BaseActivity() {
     }
 
     private fun updateListView(favoriteEvents: List<Event>) {
-        val adapter = favoritesListView.adapter as ArrayAdapter<String>
-
-        // Convert each Event object to a String
-        val eventStrings = favoriteEvents.map { event ->
-            // Assuming Event class has a 'name' property. Modify as per your Event class structure.
-            event.name
-        }
-
-        adapter.clear()
-        adapter.addAll(eventStrings)
-        adapter.notifyDataSetChanged()
+        val adapter = EventAdapter(this@FavoriteActivity, favoriteEvents)
+        favoritesListView.adapter = adapter
     }
 
 
