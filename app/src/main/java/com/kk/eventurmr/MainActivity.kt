@@ -52,7 +52,6 @@ class MainActivity : BaseActivity() {
                 withContext(Dispatchers.Main) {
                     val adapter = EventAdapter(this@MainActivity, events)
                     eventsListView.adapter = adapter
-
                     eventsListView.setOnItemClickListener { _, _, position, _ ->
                         Log.d(TAG, "Item clicked: ${events[position].name}")
                         val intent = Intent(this@MainActivity, DetailActivity::class.java)

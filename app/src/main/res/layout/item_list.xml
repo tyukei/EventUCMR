@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10sp"
         android:layout_weight="1"
-        android:background="@color/light_blue"
+        android:background="@drawable/rounded_corners"
+        android:padding="20sp"
         android:orientation="vertical">
 
         <TextView
