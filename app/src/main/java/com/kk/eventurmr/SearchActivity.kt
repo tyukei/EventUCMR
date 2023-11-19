@@ -9,6 +9,7 @@ import android.widget.ListView
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
+import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ class SearchActivity : BaseActivity() {
 
     private lateinit var searchEditText: EditText
     private lateinit var searchResultsListView: ListView
-    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var adapter: EventAdapter
 
     // Original full list of items
     private val allItems = mutableListOf<String>()
@@ -26,6 +27,7 @@ class SearchActivity : BaseActivity() {
 
     // List for filtered items
     private val filteredItems = ArrayList<String>()
+    private val filteredEvent = ArrayList<Event>()
 
     private val db by lazy {
         Room.databaseBuilder(
@@ -43,21 +45,20 @@ class SearchActivity : BaseActivity() {
         initlist()
         setupMenuBar()
         highlightSelectedIcon(R.id.searchImageView)
+        setupSearchEditText()
+        setupSearchResultsListView()
     }
 
     private fun initlist() {
         CoroutineScope(Dispatchers.IO).launch {
             allEvents = db.eventDao().getAllEvents()
-            val eventNames = allEvents.map { it.name }
             withContext(Dispatchers.Main) {
-                allItems.clear()
-                allItems.addAll(eventNames)
-                filteredItems.addAll(allItems)
-                setupSearchResultsListView()
-                setupSearchEditText()
+                filteredEvent.addAll(allEvents)
+                adapter.notifyDataSetChanged()
             }
         }
     }
+
 
 
     private fun setupSearchEditText() {
@@ -65,25 +66,25 @@ class SearchActivity : BaseActivity() {
             override fun afterTextChanged(s: Editable?) {
                 performSearch(s.toString().trim())
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
 
+
+    private fun setupSearchResultsListView() {
+        adapter = EventAdapter(this@SearchActivity, filteredEvent)
+        searchResultsListView.adapter = adapter
+    }
+
     private fun performSearch(query: String) {
-        filteredItems.clear()
+        filteredEvent.clear()
         if (query.isEmpty()) {
-            filteredItems.addAll(allItems)
+            filteredEvent.addAll(allEvents)
         } else {
-            val searchResults = allItems.filter { it.startsWith(query, ignoreCase = true) }
-            filteredItems.addAll(searchResults)
+            filteredEvent.addAll(allEvents.filter { it.name.contains(query, ignoreCase = true) })
         }
         adapter.notifyDataSetChanged()
     }
 
-    private fun setupSearchResultsListView() {
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, filteredItems)
-        searchResultsListView.adapter = adapter
-    }
 }

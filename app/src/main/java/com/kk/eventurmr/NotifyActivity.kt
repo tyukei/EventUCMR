@@ -10,6 +10,7 @@ import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
 import com.kk.data.TimeUtil
+import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter
 class NotifyActivity : BaseActivity() {
 
     private lateinit var notifyListView: ListView
+    private lateinit var adapter: EventAdapter
 
     private val db by lazy {
         Room.databaseBuilder(
@@ -43,18 +45,9 @@ class NotifyActivity : BaseActivity() {
     }
 
     private fun setuptNotifyListView() {
-        // Initial dummy data for the list view
-        val notifyItems = mutableListOf("Favorite 1", "Favorite 2", "Favorite 3")
-
-        // Adapter setup
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, notifyItems)
+        val notifyItems = ArrayList<Event>()
+        adapter = EventAdapter(this@NotifyActivity, notifyItems) // 初期化
         notifyListView.adapter = adapter
-
-        // Item click listener
-        notifyListView.setOnItemClickListener { _, _, position, _ ->
-            val selectedItem = notifyItems[position]
-            // Handle the list item click, e.g., navigate to a detail view
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -82,19 +75,10 @@ class NotifyActivity : BaseActivity() {
             }
         }
     }
-
     private fun updateListView(notifyEvents: List<Event>) {
-        val adapter = notifyListView.adapter as ArrayAdapter<String>
-
-        // Convert each Event object to a String
-        val eventStrings = notifyEvents.map { event ->
-            // Assuming Event class has a 'name' property. Modify as per your Event class structure.
-            event.name
-        }
-
         adapter.clear()
-        adapter.addAll(eventStrings)
-        adapter.notifyDataSetChanged()
+        adapter.addAll(notifyEvents) // リストを更新
+        adapter.notifyDataSetChanged() // ListViewに変更を通知
     }
 
 
