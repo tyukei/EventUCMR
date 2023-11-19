@@ -76,7 +76,7 @@ class SearchActivity : BaseActivity() {
         if (query.isEmpty()) {
             filteredItems.addAll(allItems)
         } else {
-            val searchResults = allItems.filter { it.contains(query, ignoreCase = true) }
+            val searchResults = allItems.filter { it.startsWith(query, ignoreCase = true) }
             filteredItems.addAll(searchResults)
         }
         adapter.notifyDataSetChanged()
