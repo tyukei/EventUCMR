@@ -10,6 +10,7 @@ import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
 import com.kk.data.TimeUtil
+import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -47,10 +48,8 @@ class MainActivity : BaseActivity() {
             try {
                 // データベースからイベントを取得してListViewにセットする
                 val events = getEventsFromDatabase()
-                val adapter = ArrayAdapter(
-                    this@MainActivity,
-                    android.R.layout.simple_list_item_1,
-                    events.map { it.name })
+                // CoroutineScopeの外でMainActivityのContextを使用
+                val adapter = EventAdapter(this@MainActivity, events)
                 eventsListView.adapter = adapter
 
                 eventsListView.setOnItemClickListener { _, _, position, _ ->
@@ -64,6 +63,7 @@ class MainActivity : BaseActivity() {
             }
         }
     }
+
 
     // データベースからイベントを取得する非同期関数
     private suspend fun getEventsFromDatabase(): List<Event> {
