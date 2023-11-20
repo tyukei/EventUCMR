@@ -37,6 +37,7 @@
         android:layout_below="@id/searchEditText"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.5dp"
+        android:layout_marginBottom="100sp"
         android:padding="8dp" />
 
     <!-- Include the menu bar -->
