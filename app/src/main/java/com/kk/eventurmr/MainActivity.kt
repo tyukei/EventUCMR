@@ -221,7 +221,317 @@ class MainActivity : BaseActivity() {
                 dateTime = TimeUtil.getDateInt("2023-11-21 09:31:32"),
                 description = "This is an 8-week internship process that involves two meetings a week. During these meetings, we bring in guest speakers like professors or Business Society alumni and conduct workshops to help interns grow their skills and learn more about the professional world.",
                 isfavorite = false
+            ), Event(
+                id = 15,
+                name = "Explore a Career in Education at Uncommon Schools!",
+                location = "Online - UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-21 12:30:00"),
+                description = "This external hosted employer event offers a chance to explore a career in education at Uncommon Schools. For more details and registration, please visit the provided link.",
+                isfavorite = false
+            ),
+            Event(
+                id = 16,
+                name = "PAA Choir Practice at GRAN 135",
+                location = "GRAN 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-21 13:11:36"),
+                description = "PAA's Choir Division, a part of the CMCDs, practices for performances at the annual Barrio Fiesta. This event focuses on preparing for the upcoming fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 17,
+                name = "PAA Modern Practice at SSM 116",
+                location = "SSM 116, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-21 14:00:00"),
+                description = "The Modern Division of PAA, part of the CMCDs, will hold a practice session for the annual Barrio Fiesta. Dance space and speakers are arranged by the modern leaders.",
+                isfavorite = false
+            ),
+            Event(
+                id = 18,
+                name = "Hermana Talk at ADMIN 354",
+                location = "ADMIN 354, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-21 17:30:00"),
+                description = "A weekly meeting for GB members that includes workshops and group activities, aimed at fostering a bonding experience.",
+                isfavorite = false
+            ),
+            Event(
+                id = 19,
+                name = "PAA Choir Practice at GLCR 135",
+                location = "GLCR 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-21 20:00:00"),
+                description = "Another session of PAA's Choir Division practice for the annual Barrio Fiesta, focusing on perfecting their performances.",
+                isfavorite = false
+            ),Event(
+                id = 20,
+                name = "PAA Cultural Practice at GLCR 165",
+                location = "GLCR 165, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-21 20:00:00"),
+                description = "PAA's Cultural Division practices for their presentations at the annual Barrio Fiesta. This event is a rehearsal space for choreographies and team interaction.",
+                isfavorite = false
+            ),
+            Event(
+                id = 21,
+                name = "PAA Modern Practice at Tenaya 145",
+                location = "Tenaya 145, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-21 20:00:00"),
+                description = "The Modern Division of PAA practices for the annual Barrio Fiesta. The session requires dance space and speakers, usually brought by the modern leaders.",
+                isfavorite = false
+            ),
+            Event(
+                id = 22,
+                name = "Business Society Internship Process at COB2 130",
+                location = "COB2 130, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-22 09:31:32"),
+                description = "An 8-week internship process including bi-weekly meetings with guest speakers like professors or Business Society alumni, and workshops for skill development.",
+                isfavorite = false
+            ),
+            Event(
+                id = 23,
+                name = "PAA Choir Practice at GRAN 135",
+                location = "GRAN 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-22 13:11:36"),
+                description = "PAA's Choir Division practices for the Barrio Fiesta. This session focuses on refining the members' performances for the upcoming event.",
+                isfavorite = false
+            ),
+            Event(
+                id = 24,
+                name = "PAA Modern Practice at SSM 116",
+                location = "SSM 116, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-22 14:00:00"),
+                description = "Practice session for PAA's Modern Division as part of their preparation for the annual Barrio Fiesta, requiring only dance space and speakers.",
+                isfavorite = false
+            ),
+            Event(
+                id = 25,
+                name = "Hermana Talk at ADMIN 354",
+                location = "ADMIN 354, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-22 17:30:00"),
+                description = "Weekly bonding and development meeting for GB members, featuring workshops and group activities.",
+                isfavorite = false
+            ),
+            Event(
+                id = 26,
+                name = "PAA Choir Practice at GLCR 135",
+                location = "GLCR 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-22 20:00:00"),
+                description = "Another choir practice session for PAA in preparation for the Barrio Fiesta, focusing on performance excellence.",
+                isfavorite = false
+            ),Event(
+                id = 27,
+                name = "PAA Cultural Practice at GLCR 165",
+                location = "GLCR 165, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-22 20:00:00"),
+                description = "PAA's Cultural Division practices for their annual Barrio Fiesta presentations, focusing on choreography and team interaction.",
+                isfavorite = false
+            ),
+            Event(
+                id = 28,
+                name = "PAA Modern Practice at Tenaya 145",
+                location = "Tenaya 145, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-22 20:00:00"),
+                description = "The Modern Division of PAA prepares for the Barrio Fiesta, requiring only dance space and speakers for the practice.",
+                isfavorite = false
+            ),
+            Event(
+                id = 29,
+                name = "Graduate Dissertation Writing Group at COB2",
+                location = "COB2-295, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-23 09:00:00"),
+                description = "A weekly dissertation writing group for graduates, providing a structured environment with coffee and tea.",
+                isfavorite = false
+            ),
+            Event(
+                id = 30,
+                name = "PAA Choir Practice at GRAN 135",
+                location = "GRAN 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-23 13:11:36"),
+                description = "Choir Division of PAA practices for the upcoming Barrio Fiesta, focusing on refining performances.",
+                isfavorite = false
+            ),
+            Event(
+                id = 31,
+                name = "PAA Modern Practice at SSM 116",
+                location = "SSM 116, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-23 14:00:00"),
+                description = "Another practice session for PAA's Modern Division in preparation for the Barrio Fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 32,
+                name = "Hermana Talk at ADMIN 354",
+                location = "ADMIN 354, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-23 17:30:00"),
+                description = "Weekly meeting for GB members at Hermana Talk, featuring workshops and group activities for bonding.",
+                isfavorite = false
+            ),
+            Event(
+                id = 33,
+                name = "PAA Choir Practice at GLCR 135",
+                location = "GLCR 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-23 20:00:00"),
+                description = "PAA's Choir Division holds another practice session for the Barrio Fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 34,
+                name = "PAA Cultural Practice at GLCR 165",
+                location = "GLCR 165, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-23 20:00:00"),
+                description = "Cultural Division of PAA practices for Barrio Fiesta, focusing on choreography and team preparation.",
+                isfavorite = false
+            ),
+            Event(
+                id = 35,
+                name = "PAA Modern Practice at Tenaya 145",
+                location = "Tenaya 145, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-23 20:00:00"),
+                description = "Practice session for PAA's Modern Division as they prepare for the Barrio Fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 36,
+                name = "MBA Dissertation Openhouse at Kolligan Library",
+                location = "Kolligan Library, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-24 09:00:00"),
+                description = "MBA dissertation workshop open to all UCM students. Seats available on a first-come, first-serve basis.",
+                isfavorite = false
+            ),
+            Event(
+                id = 37,
+                name = "MBA Dissertation Openhouse",
+                location = "UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-24 09:00:00"),
+                description = "An openhouse for MBA dissertation workshops, effective every Friday throughout the semester.",
+                isfavorite = false
+            ),Event(
+                id = 38,
+                name = "PAA Choir Practice at GRAN 135",
+                location = "GRAN 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-24 13:11:36"),
+                description = "PAA's Choir Division, part of the CMCDs, holds a practice session for their performances at the upcoming Barrio Fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 39,
+                name = "PAA Modern Practice at SSM 116",
+                location = "SSM 116, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-24 14:00:00"),
+                description = "Practice session for PAA's Modern Division, focusing on dance and performance preparation for the Barrio Fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 40,
+                name = "Hermana Talk at ADMIN 354",
+                location = "ADMIN 354, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-24 17:30:00"),
+                description = "Weekly Hermana Talk meeting for GB members, featuring workshops and group activities for team bonding.",
+                isfavorite = false
+            ),
+            Event(
+                id = 41,
+                name = "PAA Choir Practice at GLCR 135",
+                location = "GLCR 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-24 20:00:00"),
+                description = "Another choir practice session for PAA in preparation for the Barrio Fiesta, focusing on improving their performances.",
+                isfavorite = false
+            ),
+            Event(
+                id = 42,
+                name = "PAA Cultural Practice at GLCR 165",
+                location = "GLCR 165, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-24 20:00:00"),
+                description = "PAA's Cultural Division's rehearsal session for the Barrio Fiesta, focusing on choreography and team interaction.",
+                isfavorite = false
+            ),
+            Event(
+                id = 43,
+                name = "PAA Modern Practice at Tenaya 145",
+                location = "Tenaya 145, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-24 20:00:00"),
+                description = "PAA's Modern Division's practice session for the Barrio Fiesta, focusing on dance and performance skills.",
+                isfavorite = false
+            ),
+            Event(
+                id = 44,
+                name = "PAA Modern Practice at ACS 108",
+                location = "ACS 108, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-24 20:00:00"),
+                description = "Another practice for PAA's Modern Division as part of the preparations for the Barrio Fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 45,
+                name = "PAA Choir Practice at GRAN 135",
+                location = "GRAN 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-25 13:11:36"),
+                description = "Continued practice session for PAA's Choir Division, working on their performances for the upcoming Barrio Fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 46,
+                name = "PAA Modern Practice at SSM 116",
+                location = "SSM 116, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-25 14:00:00"),
+                description = "PAA's Modern Division practices for the Barrio Fiesta, focusing on dance routines and performance techniques.",
+                isfavorite = false
+            ),
+            Event(
+                id = 47,
+                name = "Hermana Talk at ADMIN 354",
+                location = "ADMIN 354, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-25 17:30:00"),
+                description = "Weekly gathering at Hermana Talk for GB members with workshops and group activities to enhance bonding and cooperation.",
+                isfavorite = false
+            ),
+            Event(
+                id = 48,
+                name = "PAA Choir Practice at GLCR 135",
+                location = "GLCR 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-25 20:00:00"),
+                description = "Rehearsal for PAA's Choir Division as they prepare for their performance at the Barrio Fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 49,
+                name = "PAA Cultural Practice at GLCR 165",
+                location = "GLCR 165, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-25 20:00:00"),
+                description = "Rehearsal session for PAA's Cultural Division, focusing on their performance for the upcoming Barrio Fiesta.",
+                isfavorite = false
+            ),
+            Event(
+                id = 50,
+                name = "PAA Modern Practice at Tenaya 145",
+                location = "Tenaya 145, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-25 20:00:00"),
+                description = "PAA's Modern Division continues their practice for the Barrio Fiesta, emphasizing dance and stage presence.",
+                isfavorite = false
+            ),
+            Event(
+                id = 51,
+                name = "Chapter 11/26 at SSB 170",
+                location = "SSB 170, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-26 17:00:31"),
+                description = "Kappa Kappa Gamma chapter meeting to discuss announcements, events, and complete necessary tasks.",
+                isfavorite = false
+            ),
+            Event(
+                id = 52,
+                name = "Hermana Talk at ADMIN 354",
+                location = "ADMIN 354, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-26 17:30:00"),
+                description = "Regular meeting for GB members at Hermana Talk, including various workshops and group activities.",
+                isfavorite = false
+            ),
+            Event(
+                id = 53,
+                name = "PAA Choir Practice at GLCR 135",
+                location = "GLCR 135, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-26 20:00:00"),
+                description = "Another practice session for PAA's Choir Division, preparing for their performance at the Barrio Fiesta.",
+                isfavorite = false
             )
+
+
         )
 
 
