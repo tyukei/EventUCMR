@@ -25,7 +25,7 @@
             <LinearLayout
                 android:id="@+id/eventDetailsTitle"
                 android:layout_width="match_parent"
-                android:layout_height="64sp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Event Details"
-                    android:textSize="32sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <ImageButton
