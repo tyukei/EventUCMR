@@ -27,7 +27,12 @@ class TimeUtil {
             val month = timeString.substring(2, 4)
             val day = timeString.substring(4, 6)
             val hour = timeString.substring(6, 8)
-            return "20$year-$month-$day $hour:00"
+            return if (hour.toInt() < 12) {
+                "20$year-$month-$day ($hour:00 am)"
+            } else {
+                val newhour = hour.toInt() - 12
+                "20$year-$month-$day ($newhour:00 pm)"
+            }
         }
 
 

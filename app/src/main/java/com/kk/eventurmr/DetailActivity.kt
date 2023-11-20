@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
+import com.kk.data.TimeUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,7 +72,8 @@ class DetailActivity : BaseActivity() {
                     titleTextView.text = it.name
                     locationTextView.text = it.location
                     locationStr = it.location
-                    dateTimeTextView.text = it.dateTime.toString()
+                    val timeInt = it.dateTime
+                    dateTimeTextView.text = TimeUtil.getDateString(timeInt)
                     descriptionTextView.text = it.description
                     isfavorite = it.isfavorite
                     Log.d(TAG, "heart:$isfavorite")

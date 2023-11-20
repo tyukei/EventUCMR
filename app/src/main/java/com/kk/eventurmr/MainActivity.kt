@@ -10,7 +10,6 @@ import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
 import com.kk.data.TimeUtil
-import com.kk.data.UserId.Companion.id
 import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,6 +43,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        Log.d(TAG, "onTouchEvent: " + event.action)
         if (event.action == MotionEvent.ACTION_DOWN) {
             val tapInfo =
                 "Time: " + System.currentTimeMillis() + ", X: " + event.x + ", Y: " + event.y
@@ -198,6 +198,28 @@ class MainActivity : BaseActivity() {
                 location = "Tenaya 145, UC Merced",
                 dateTime = TimeUtil.getDateInt("2023-11-20 20:00"),
                 description = "PAA's Modern Division is one third of the CMCDs that make up presentations at the annual barrio fiesta hosted every November by PAA. Only thing required is dance space and speakers. Usually our Modern leaders bring their own speakers and equipment for practice.",
+                isfavorite = false
+            ),
+            Event(
+                id = 12,
+                name = "Faculty & Graduate Student Write-In at COB2",
+                location = "COB2-295, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-21 09:00"),
+                description = "Faculty & Graduate Student Write-In held every Tuesday from 9 AM - 12 PM in COB2-295. Coffee & tea provided!",
+                isfavorite = false
+            ), Event(
+                id = 13,
+                name = "Study Abroad 101: General Info Session (Zoom)",
+                location = "Online (Zoom)",
+                dateTime = TimeUtil.getDateInt("2023-11-21 09:30"),
+                description = "Interested in studying abroad but not sure where to start? Come to this info session led by a study abroad advisor. Topics covered include what is study abroad, why you should study abroad, options available, how to select the right program, and how to search and apply for programs.",
+                isfavorite = false
+            ), Event(
+                id = 14,
+                name = "Business Society Internship Process at COB2 130",
+                location = "COB2 130, UC Merced",
+                dateTime = TimeUtil.getDateInt("2023-11-21 09:31:32"),
+                description = "This is an 8-week internship process that involves two meetings a week. During these meetings, we bring in guest speakers like professors or Business Society alumni and conduct workshops to help interns grow their skills and learn more about the professional world.",
                 isfavorite = false
             )
         )
