@@ -30,8 +30,12 @@ class EventAdapter(context: Context, events: List<Event>) :
         view.findViewById<TextView>(R.id.eventDescription).text =
             lastSpaceIndex?.let { event?.description?.substring(0, it) }
         view.findViewById<TextView>(R.id.eventDate).text = date
-        view.findViewById<ImageView>(R.id.eventMap)
-
+        val eventMapImageView =view.findViewById<ImageView>(R.id.eventMap)
+        eventMapImageView.setOnClickListener {
+            val uri = Uri.parse("geo:0,0?q=${event?.location}")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            context.startActivity(intent)
+        }
         return view
     }
 }
