@@ -13,9 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleBar"
+        android:layout_marginBottom="100sp"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.5dp"
         android:padding="16dp" />
+
 
     <include
         layout="@layout/menuebar" />
