@@ -1,9 +1,10 @@
 package com.kk.eventurmr
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
@@ -12,11 +13,12 @@ import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class FavoriteActivity : BaseActivity() {
 
     private lateinit var favoritesListView: ListView
-
+    private val TAG = "FavoriteActivity"
 
     private val db by lazy {
         Room.databaseBuilder(
@@ -36,6 +38,28 @@ class FavoriteActivity : BaseActivity() {
         getFavoriteEvent()
     }
 
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            val tapInfo =
+                "Time: " + System.currentTimeMillis() + ", X: " + event.x + ", Y: " + event.y
+            writeFile(tapInfo)
+        }
+        return super.onTouchEvent(event)
+    }
+
+    private fun writeFile(data: String) {
+        Log.d(TAG, "writeFile: $data")
+        try {
+            val fos = openFileOutput("tap_log.txt", MODE_APPEND)
+            fos.write(
+                """$data
+    """.toByteArray()
+            )
+            fos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
 
     private fun initializeViews() {
         favoritesListView = findViewById(R.id.searchResultsListView)
