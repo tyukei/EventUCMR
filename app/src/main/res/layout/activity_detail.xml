@@ -73,12 +73,12 @@
                 android:text="Aliquam dignissim blandit est, in dictum tortor gravida eget..." />
 
 
-            <Button
-                android:id="@+id/registerButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Register Here" />
+<!--            <Button-->
+            <!--                android:id="@+id/registerButton"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="24dp"-->
+            <!--                android:text="Register Here" />-->
         </LinearLayout>
     </ScrollView>
 
