@@ -9,6 +9,7 @@ import android.widget.ListView
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
+import com.kk.data.TimeUtil
 import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,7 +52,8 @@ class SearchActivity : BaseActivity() {
 
     private fun initlist() {
         CoroutineScope(Dispatchers.IO).launch {
-            allEvents = db.eventDao().getAllEvents()
+            val current = TimeUtil.getCurrentInt()
+            allEvents = db.eventDao().getFeatureEvents(current)
             withContext(Dispatchers.Main) {
                 filteredEvent.addAll(allEvents)
                 adapter.notifyDataSetChanged()

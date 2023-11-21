@@ -69,7 +69,8 @@ class MainActivity : BaseActivity() {
     // データベースからイベントを取得する非同期関数
     private suspend fun getEventsFromDatabase(): List<Event> {
         return withContext(Dispatchers.IO) {
-            db.eventDao().getAllEvents()
+            val current = TimeUtil.getCurrentInt()
+            db.eventDao().getFeatureEvents(current)
         }
     }
 

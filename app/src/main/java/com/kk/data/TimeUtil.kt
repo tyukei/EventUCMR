@@ -1,6 +1,8 @@
 package com.kk.data
 
 import android.util.Log
+import java.time.LocalDate
+import java.time.LocalTime
 
 class TimeUtil {
     companion object {
@@ -33,6 +35,18 @@ class TimeUtil {
                 val newhour = hour.toInt() - 12
                 "20$year-$month-$day ($newhour:00 pm)"
             }
+        }
+
+        fun getCurrentInt(): Int {
+            // get 2023-11-01 10:00
+            val current = LocalDate.now()
+            val year = current.year.toString().substring(2, 4)
+            val month = current.monthValue.toString().padStart(2, '0')
+            val day = current.dayOfMonth.toString().padStart(2, '0')
+            val currentTime = LocalTime.now()
+            val hour = currentTime.hour.toString().padStart(2, '0')
+            Log.d("TimeUtil", "$year$month$day$hour")
+            return ("$year$month$day$hour").toInt()
         }
 
 
