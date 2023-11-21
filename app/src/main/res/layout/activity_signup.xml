@@ -30,7 +30,7 @@
         android:layout_below="@id/signUpTitleTextView"
         android:layout_marginHorizontal="16sp"
         android:layout_marginBottom="8dp"
-        android:hint="UCM Email"
+        android:hint="Name"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -40,7 +40,7 @@
         android:layout_below="@id/nameEditText"
         android:layout_marginHorizontal="16sp"
         android:layout_marginBottom="8dp"
-        android:hint="UCM Email"
+        android:hint="Email"
         android:inputType="textEmailAddress" />
 
     <!-- Password input -->
