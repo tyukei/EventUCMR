@@ -1,7 +1,9 @@
 package com.kk.eventurmr
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.annotation.RequiresApi
@@ -9,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
+import com.kk.data.FileUtil
 import com.kk.data.TimeUtil
 import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +24,7 @@ class NotifyActivity : BaseActivity() {
 
     private lateinit var notifyListView: ListView
     private lateinit var adapter: EventAdapter
+    private var TAG = "NotifyActivity"
 
     private val db by lazy {
         Room.databaseBuilder(
@@ -79,6 +83,16 @@ class NotifyActivity : BaseActivity() {
         adapter.clear()
         adapter.addAll(notifyEvents) // リストを更新
         adapter.notifyDataSetChanged() // ListViewに変更を通知
+        notifyListView.setOnItemClickListener { _, _, position, _ ->
+            Log.d(TAG, "Item clicked: ${notifyEvents[position].name}")
+            FileUtil.writeFile(
+                applicationContext,
+                "Tap:${notifyEvents[position].name}"
+            )
+            val intent = Intent(this@NotifyActivity, DetailActivity::class.java)
+            intent.putExtra("eventId", notifyEvents[position].id)
+            startActivity(intent)
+        }
     }
 
 

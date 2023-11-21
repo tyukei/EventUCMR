@@ -42,7 +42,6 @@ class DetailActivity : BaseActivity() {
 
         initView()
         setupMenuBar()
-        highlightSelectedIcon(R.id.homeImageView)
         setDB()
         locationTextView.setOnClickListener {
             val uri = Uri.parse("geo:0,0?q=$locationStr")

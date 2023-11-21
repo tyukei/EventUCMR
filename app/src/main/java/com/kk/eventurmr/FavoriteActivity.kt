@@ -1,6 +1,8 @@
 package com.kk.eventurmr
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -86,6 +88,17 @@ class FavoriteActivity : BaseActivity() {
     private fun updateListView(favoriteEvents: List<Event>) {
         val adapter = EventAdapter(this@FavoriteActivity, favoriteEvents,db)
         favoritesListView.adapter = adapter
+
+        favoritesListView.setOnItemClickListener { _, _, position, _ ->
+            Log.d(TAG, "Item clicked: ${favoriteEvents[position].name}")
+            FileUtil.writeFile(
+                applicationContext,
+                "Tap:${favoriteEvents[position].name}"
+            )
+            val intent = Intent(this@FavoriteActivity, DetailActivity::class.java)
+            intent.putExtra("eventId", favoriteEvents[position].id)
+            startActivity(intent)
+        }
     }
 
 
