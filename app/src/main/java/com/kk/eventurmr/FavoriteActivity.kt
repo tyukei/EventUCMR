@@ -84,7 +84,7 @@ class FavoriteActivity : BaseActivity() {
     }
 
     private fun updateListView(favoriteEvents: List<Event>) {
-        val adapter = EventAdapter(this@FavoriteActivity, favoriteEvents)
+        val adapter = EventAdapter(this@FavoriteActivity, favoriteEvents,db)
         favoritesListView.adapter = adapter
     }
 

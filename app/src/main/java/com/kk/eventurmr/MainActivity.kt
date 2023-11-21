@@ -46,7 +46,7 @@ class MainActivity : BaseActivity() {
             try {
                 val events = getEventsFromDatabase()
                 withContext(Dispatchers.Main) {
-                    val adapter = EventAdapter(this@MainActivity, events)
+                    val adapter = EventAdapter(this@MainActivity, events,db)
                     eventsListView.adapter = adapter
                     eventsListView.setOnItemClickListener { _, _, position, _ ->
                         Log.d(TAG, "Item clicked: ${events[position].name}")

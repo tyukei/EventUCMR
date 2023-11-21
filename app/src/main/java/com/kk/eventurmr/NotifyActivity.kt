@@ -46,7 +46,7 @@ class NotifyActivity : BaseActivity() {
 
     private fun setuptNotifyListView() {
         val notifyItems = ArrayList<Event>()
-        adapter = EventAdapter(this@NotifyActivity, notifyItems) // 初期化
+        adapter = EventAdapter(this@NotifyActivity, notifyItems,db) // 初期化
         notifyListView.adapter = adapter
     }
 

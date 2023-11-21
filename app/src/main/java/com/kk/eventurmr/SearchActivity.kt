@@ -73,7 +73,7 @@ class SearchActivity : BaseActivity() {
 
 
     private fun setupSearchResultsListView() {
-        adapter = EventAdapter(this@SearchActivity, filteredEvent)
+        adapter = EventAdapter(this@SearchActivity, filteredEvent,db)
         searchResultsListView.adapter = adapter
     }
 
