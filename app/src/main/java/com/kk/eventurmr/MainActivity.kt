@@ -3,19 +3,17 @@ package com.kk.eventurmr
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
 import android.widget.ListView
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
+import com.kk.data.FileUtil
 import com.kk.data.TimeUtil
 import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.IOException
-
 
 class MainActivity : BaseActivity() {
     private val TAG = "MainActivity"
@@ -42,43 +40,20 @@ class MainActivity : BaseActivity() {
         addEventToDatabase()
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        Log.d(TAG, "onTouchEvent: " + event.action)
-        if (event.action == MotionEvent.ACTION_DOWN) {
-            val tapInfo =
-                "Time: " + System.currentTimeMillis() + ", X: " + event.x + ", Y: " + event.y
-            writeFile(tapInfo)
-        }
-        return super.onTouchEvent(event)
-    }
-
-    private fun writeFile(data: String) {
-        Log.d(TAG, "writeFile: $data")
-        try {
-            val fos = openFileOutput("tap_log.txt", MODE_APPEND)
-            fos.write(
-                """$data
-    """.toByteArray()
-            )
-            fos.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
     private fun setupListView() {
         eventsListView = findViewById(R.id.eventsListView)
-
         lifecycleScope.launch {
             try {
                 val events = getEventsFromDatabase()
-
-                // UIスレッドでアダプター設定
                 withContext(Dispatchers.Main) {
                     val adapter = EventAdapter(this@MainActivity, events)
                     eventsListView.adapter = adapter
                     eventsListView.setOnItemClickListener { _, _, position, _ ->
                         Log.d(TAG, "Item clicked: ${events[position].name}")
+                        FileUtil.writeFile(
+                            applicationContext,
+                            "Tap:${events[position].name}"
+                        )
                         val intent = Intent(this@MainActivity, DetailActivity::class.java)
                         intent.putExtra("eventId", events[position].id)
                         startActivity(intent)
@@ -260,7 +235,7 @@ class MainActivity : BaseActivity() {
                 dateTime = TimeUtil.getDateInt("2023-11-21 20:00:00"),
                 description = "Another session of PAA's Choir Division practice for the annual Barrio Fiesta, focusing on perfecting their performances.",
                 isfavorite = false
-            ),Event(
+            ), Event(
                 id = 20,
                 name = "PAA Cultural Practice at GLCR 165",
                 location = "GLCR 165, UC Merced",
@@ -315,7 +290,7 @@ class MainActivity : BaseActivity() {
                 dateTime = TimeUtil.getDateInt("2023-11-22 20:00:00"),
                 description = "Another choir practice session for PAA in preparation for the Barrio Fiesta, focusing on performance excellence.",
                 isfavorite = false
-            ),Event(
+            ), Event(
                 id = 27,
                 name = "PAA Cultural Practice at GLCR 165",
                 location = "GLCR 165, UC Merced",
@@ -402,7 +377,7 @@ class MainActivity : BaseActivity() {
                 dateTime = TimeUtil.getDateInt("2023-11-24 09:00:00"),
                 description = "An openhouse for MBA dissertation workshops, effective every Friday throughout the semester.",
                 isfavorite = false
-            ),Event(
+            ), Event(
                 id = 38,
                 name = "PAA Choir Practice at GRAN 135",
                 location = "GRAN 135, UC Merced",

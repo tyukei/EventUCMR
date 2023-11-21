@@ -1,7 +1,6 @@
 package com.kk.eventurmr
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -9,11 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
+import com.kk.data.FileUtil
 import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
 class FavoriteActivity : BaseActivity() {
 
@@ -42,23 +41,10 @@ class FavoriteActivity : BaseActivity() {
         if (event.action == MotionEvent.ACTION_DOWN) {
             val tapInfo =
                 "Time: " + System.currentTimeMillis() + ", X: " + event.x + ", Y: " + event.y
-            writeFile(tapInfo)
+            val context = applicationContext
+            FileUtil.writeFile(context, tapInfo)
         }
         return super.onTouchEvent(event)
-    }
-
-    private fun writeFile(data: String) {
-        Log.d(TAG, "writeFile: $data")
-        try {
-            val fos = openFileOutput("tap_log.txt", MODE_APPEND)
-            fos.write(
-                """$data
-    """.toByteArray()
-            )
-            fos.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
     }
 
     private fun initializeViews() {

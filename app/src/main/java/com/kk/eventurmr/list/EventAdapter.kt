@@ -31,6 +31,7 @@ class EventAdapter(context: Context, events: List<Event>) :
             lastSpaceIndex?.let { event?.description?.substring(0, it) }
         view.findViewById<TextView>(R.id.eventDate).text = date
         val eventMapImageView =view.findViewById<ImageView>(R.id.eventMap)
+        eventMapImageView.isFocusable = false
         eventMapImageView.setOnClickListener {
             val uri = Uri.parse("geo:0,0?q=${event?.location}")
             val intent = Intent(Intent.ACTION_VIEW, uri)
