@@ -63,7 +63,7 @@ class NotifyActivity : BaseActivity() {
         val intFormat = TimeUtil.getDateInt(strFormat)
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val within2weekEvent = db.eventDao().getEventByTime(intToday, intFormat)
+                val within2weekEvent = db.eventDao().getFavoriteEventByTime(intToday, intFormat)
                 withContext(Dispatchers.Main) {
                     updateListView(within2weekEvent)
                 }

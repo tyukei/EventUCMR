@@ -34,6 +34,11 @@ interface EventDao {
     @Query("SELECT * FROM Event WHERE :today <= dateTime AND dateTime < :timestamp")
     fun getEventByTime(today: Int, timestamp: Int): List<Event>
 
+    // get timestamp less than int and favorite is 1
+    @Query("SELECT * FROM Event WHERE :today <= dateTime AND dateTime < :timestamp AND isfavorite = 1")
+    fun getFavoriteEventByTime(today: Int, timestamp: Int): List<Event>
+
+
     // Clear all events from the database
     @Query("DELETE FROM Event")
     fun clearAllEvents()
