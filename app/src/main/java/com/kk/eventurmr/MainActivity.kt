@@ -44,6 +44,9 @@ class MainActivity : BaseActivity() {
         lifecycleScope.launch {
             try {
                 val events = getEventsFromDatabase()
+                for (event in events) {
+                    Log.d(TAG, "Event: ${event.name}")
+                }
                 withContext(Dispatchers.Main) {
                     val adapter = EventAdapter(this@MainActivity, events,db)
                     eventsListView.adapter = adapter

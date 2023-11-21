@@ -13,11 +13,10 @@ interface EventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEvents(events: List<Event>)
 
-
-
     // TODO Update event.favorite to true
     @Query("UPDATE Event SET isfavorite = 1 WHERE id = :id")
     fun updateFavorite(id: Int)
+
     // TODO Update event.favorites to true
     @Query("UPDATE Event SET isfavorite = 1 WHERE id IN (:ids)")
     fun updateFavorites(ids: List<Int>)
@@ -28,6 +27,10 @@ interface EventDao {
 
     @Query("SELECT * FROM event ORDER BY dateTime ASC")
     suspend fun getAllEvents(): List<Event>
+
+    // get next id
+    @Query("SELECT MAX(id) FROM Event")
+    fun getNextId(): Int
 
     @Query("SELECT * FROM event WHERE :today <= dateTime ORDER BY dateTime ASC")
     suspend fun getFeatureEvents(today: Int): List<Event>

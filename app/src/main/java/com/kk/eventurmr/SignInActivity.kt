@@ -2,17 +2,26 @@ package com.kk.eventurmr
 
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.d
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
+import com.kk.data.Event
+import com.kk.data.TimeUtil
 import com.kk.data.UserId
+import com.kk.data.UserId.Companion.id
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
@@ -49,6 +58,39 @@ class SignInActivity : AppCompatActivity() {
             startActivity(intent)
         }
         viewUserDB()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // Database operation: clear all events
+                db.eventDao().clearAllEvents()
+
+                // Network operation: fetch the document
+                val document: Document = Jsoup.connect("https://events.ucmerced.edu/calendar/1.xml").get()
+
+                val nodes = document.select("channel")
+                val items = nodes.select("item")
+
+                for (i in 0 until 5) {
+                    val title = items[i].select("title").text()
+                    val cdataContent = items[i].select("description").text()
+                    val parsedCdata = Jsoup.parse(cdataContent)
+                    val firstParagraph = parsedCdata.select("p").first().text()
+                    val time = items[i].select("pubDate").text()
+                    val timeInt = TimeUtil.convertDateFormat(time)
+                    val link = items[i].select("link").text()
+
+                    // Generate the next ID for the event
+                    val id = db.eventDao().getNextId() + 1
+
+                    // Create an event object
+                    val event = Event(id, title, link, timeInt, firstParagraph, false)
+                    Log.d(TAG, "Event: $event")
+                    // Insert the event into the database
+                    db.eventDao().insertEvent(event)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun viewUserDB() {
@@ -97,9 +139,9 @@ class SignInActivity : AppCompatActivity() {
                     password -> {
                         val id = db.userDao().getIdByEmail(email)
                         UserId.id = id!!
-                        eventDBUtil.addEventsToDatabase(lifecycleScope)
-                        val fIds = db.favoriteDao().getEidByUid(UserId.id)
-                        db.eventDao().updateFavorites(fIds)
+//                        eventDBUtil.addEventsToDatabase(lifecycleScope)
+//                        val fIds = db.favoriteDao().getEidByUid(UserId.id)
+//                        db.eventDao().updateFavorites(fIds)
                         // go to MainActivity
                         val intent = intent
                         intent.setClass(this@SignInActivity, MainActivity::class.java)

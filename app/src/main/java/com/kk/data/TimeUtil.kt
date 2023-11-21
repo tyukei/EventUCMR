@@ -1,8 +1,10 @@
 package com.kk.data
 
+import android.icu.text.SimpleDateFormat
 import android.util.Log
 import java.time.LocalDate
 import java.time.LocalTime
+import java.util.Locale
 
 class TimeUtil {
     companion object {
@@ -47,6 +49,15 @@ class TimeUtil {
             val hour = currentTime.hour.toString().padStart(2, '0')
             Log.d("TimeUtil", "$year$month$day$hour")
             return ("$year$month$day$hour").toInt()
+        }
+        fun convertDateFormat(dateString: String): Int {
+            // Parse the original date string
+            val originalFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH)
+            val date = originalFormat.parse(dateString)
+
+            // Format the date to the new format
+            val newFormat = SimpleDateFormat("yyyy-MM-dd-HH:mm", Locale.ENGLISH)
+            return getDateInt(newFormat.format(date))
         }
 
 
