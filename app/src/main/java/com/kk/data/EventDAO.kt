@@ -13,9 +13,14 @@ interface EventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEvents(events: List<Event>)
 
+
+
     // TODO Update event.favorite to true
     @Query("UPDATE Event SET isfavorite = 1 WHERE id = :id")
     fun updateFavorite(id: Int)
+    // TODO Update event.favorites to true
+    @Query("UPDATE Event SET isfavorite = 1 WHERE id IN (:ids)")
+    fun updateFavorites(ids: List<Int>)
 
     // TODO Update event.favorite to false
     @Query("UPDATE Event SET isfavorite = 0 WHERE id = :id")
@@ -41,6 +46,9 @@ interface EventDao {
     @Query("SELECT * FROM Event WHERE :today <= dateTime AND dateTime < :timestamp AND isfavorite = 1 ORDER BY dateTime ASC")
     fun getFavoriteEventByTime(today: Int, timestamp: Int): List<Event>
 
+    // Set All favorite to 0
+    @Query("UPDATE Event SET isfavorite = 0")
+    fun clearResetFavorite()
 
     // Clear all events from the database
     @Query("DELETE FROM Event")

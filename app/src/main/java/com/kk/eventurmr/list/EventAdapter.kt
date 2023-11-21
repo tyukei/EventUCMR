@@ -12,7 +12,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.kk.data.AppDatabase
 import com.kk.data.Event
+import com.kk.data.Favorite
 import com.kk.data.TimeUtil
+import com.kk.data.UserId
 import com.kk.eventurmr.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,12 +53,17 @@ class EventAdapter(context: Context, events: List<Event>, private val db: AppDat
                 Log.d("EventAdapter", "Is favorite")
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                    Log.d("EventAdapter", "event.id: ${event?.id}")
-                    if (event != null) {
-                        Log.d("EventAdapter", "event.id: ${event.id}")
-                        db.eventDao().updateUnFavorite(event.id)
-                        Log.d("EventAdapter", "event.id: ${event.id}")
-                    }
+                        Log.d("EventAdapter", "event.id: ${event?.id}")
+                        if (event != null) {
+                            Log.d("EventAdapter", "event.id: ${event.id}")
+                            db.eventDao().updateUnFavorite(event.id)
+                            val id = db.favoriteDao().getNextId()
+                            val uid = UserId.id
+                            val eid = event.id
+                            val favorite = Favorite(id,uid, eid)
+                            db.favoriteDao().insertFavorite(favorite)
+                            Log.d("EventAdapter", "event.id: ${event.id}")
+                        }
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

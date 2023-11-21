@@ -31,6 +31,7 @@ class SignInActivity : AppCompatActivity() {
         )
             .build()
     }
+    private val eventDBUtil by lazy { com.kk.data.EventDBUtil(db) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +97,9 @@ class SignInActivity : AppCompatActivity() {
                     password -> {
                         val id = db.userDao().getIdByEmail(email)
                         UserId.id = id!!
+                        eventDBUtil.addEventsToDatabase(lifecycleScope)
+                        val fIds = db.favoriteDao().getEidByUid(UserId.id)
+                        db.eventDao().updateFavorites(fIds)
                         // go to MainActivity
                         val intent = intent
                         intent.setClass(this@SignInActivity, MainActivity::class.java)

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
+import com.kk.data.EventDBUtil
 import com.kk.data.User
 import com.kk.data.UserId
 import kotlinx.coroutines.Dispatchers
@@ -27,8 +28,11 @@ class SignUpActivity : AppCompatActivity() {
         Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "event-database"
-        ).build()
+        )    .fallbackToDestructiveMigration()
+            .build()
+
     }
+    private val eventDBUtil by lazy { EventDBUtil(db) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +83,7 @@ class SignUpActivity : AppCompatActivity() {
                     Log.d(TAG, "Password: $password")
                     val id = db.userDao().getIdByEmail(email)
                     UserId.id = id!!
+                    eventDBUtil.addEventsToDatabase(lifecycleScope)
                     // go to MainActivity
                     val intent = intent
                     intent.setClass(this@SignUpActivity, MainActivity::class.java)
