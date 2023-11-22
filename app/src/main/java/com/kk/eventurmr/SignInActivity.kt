@@ -12,7 +12,6 @@ import com.kk.data.AppDatabase
 import com.kk.data.Event
 import com.kk.data.FileUtil
 import com.kk.data.TimeUtil
-import com.kk.data.URLUtil
 import com.kk.data.UserId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -73,11 +72,15 @@ class SignInActivity : AppCompatActivity() {
 
                 for (i in 0 until itemLength) {
                     var title = items[i].select("title").text()
-                    if(title.contains("2023:")) {
-                        val temp = title.split("2023:")
+                    if (title.contains("2023: ")) {
+                        val temp = title.split("2023: ")
                         title = temp[1]
-                    }else if(title.contains("2024:")){
+                    } else if (title.contains("2024:")) {
                         continue
+                    }
+
+                    if (title.contains("at")) {
+                        title = title.substringBefore("at")
                     }
                     val cdataContent = items[i].select("description").text()
                     val parsedCdata = Jsoup.parse(cdataContent)
@@ -147,9 +150,15 @@ class SignInActivity : AppCompatActivity() {
                     password -> {
                         val id = db.userDao().getIdByEmail(email)
                         UserId.id = id!!
+                        Log.d(TAG, "UserId: ${UserId.id}")
 //                        eventDBUtil.addEventsToDatabase(lifecycleScope)
-//                        val fIds = db.favoriteDao().getEidByUid(UserId.id)
-//                        db.eventDao().updateFavorites(fIds)
+                        val fIds = db.favoriteDao().getEidByUid(UserId.id)
+                        Log.d(TAG, "fIds: $fIds")
+                        db.eventDao().updateFavorites(fIds)
+                        val events = db.eventDao().getFavoriteEvents()
+                        for (event in events) {
+                            Log.d(TAG, "FavoriteEvent: $event")
+                        }
                         // go to MainActivity
                         val intent = intent
                         intent.setClass(this@SignInActivity, MainActivity::class.java)

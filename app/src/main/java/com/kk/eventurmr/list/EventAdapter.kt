@@ -53,39 +53,38 @@ class EventAdapter(context: Context, events: List<Event>, private val db: AppDat
         eventFavoriteImageView.setBackgroundResource(if (event?.isfavorite == true) R.drawable.ic_favorite_selected else R.drawable.ic_favorite)
         eventFavoriteImageView.setOnClickListener {
             Log.d("EventAdapter", "eventFavoriteImageView clicked")
-            val isFavorite = event?.isfavorite ?: false
-            if (isFavorite) {
-                // Update to unfavorite
-                Log.d("EventAdapter", "Is favorite")
+            if (event?.isfavorite == false) {
+                // Update to favorite
+                Log.d("EventAdapter", "${event.id} is favorite")
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        Log.d("EventAdapter", "event.id: ${event?.id}")
-                        if (event != null) {
-                            Log.d("EventAdapter", "event.id: ${event.id}")
-                            db.eventDao().updateUnFavorite(event.id)
-                            val id = db.favoriteDao().getNextId()
-                            val uid = UserId.id
-                            val eid = event.id
-                            val favorite = Favorite(id,uid, eid)
-                            db.favoriteDao().insertFavorite(favorite)
-                            Log.d("EventAdapter", "event.id: ${event.id}")
-                        }
+                        db.eventDao().updateUnFavorite(event.id)
+                        val id = db.favoriteDao().getNextId()
+                        val uid = UserId.id
+                        val eid = event.id
+                        val favorite = Favorite(id,uid, eid)
+                        db.favoriteDao().insertFavorite(favorite)
+                        db.eventDao().updateFavorite(event.id)
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
                 }
-                eventFavoriteImageView.setBackgroundResource(R.drawable.ic_favorite)
-            } else {
-                // Update to favorite
-                Log.d("EventAdapter", "Is not favorite")
-                if (event != null) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        db.eventDao().updateFavorite(event.id)
-                    }
-                }
                 eventFavoriteImageView.setBackgroundResource(R.drawable.ic_favorite_selected)
+            } else if(event?.isfavorite == true) {
+                // Update to unfavorite
+                Log.d("EventAdapter", "${event.id} is  not favorite")
+                CoroutineScope(Dispatchers.IO).launch {
+                    val eids = db.favoriteDao().getEidByUid(UserId.id)
+                    for(eid in eids) {
+                        if(eid == event.id) {
+                            db.favoriteDao().dropFavorite(UserId.id, eid)
+                        }
+                    }
+                    db.eventDao().updateFavorite(event.id)
+                }
+                eventFavoriteImageView.setBackgroundResource(R.drawable.ic_favorite)
             }
-            event?.isfavorite = !isFavorite
+            event?.isfavorite = !event?.isfavorite!!
         }
         return view
     }
