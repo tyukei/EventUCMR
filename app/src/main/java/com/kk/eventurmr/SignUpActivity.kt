@@ -2,14 +2,17 @@ package com.kk.eventurmr
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MotionEventCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.EventDBUtil
+import com.kk.data.FileUtil
 import com.kk.data.URLUtil
 import com.kk.data.User
 import com.kk.data.UserId
@@ -22,6 +25,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var signInButton: Button
     private lateinit var signUpButton: Button
+    private var lastaction = 0
 
     private val TAG = "SignUpActivity"
 
@@ -44,6 +48,42 @@ class SignUpActivity : AppCompatActivity() {
         }
         signUpButton.setOnClickListener {
             checkIfUserIsSignedUp()
+        }
+    }
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        //https://yusuke-hata.hatenablog.com/entry/2014/12/05/234032
+        val action: Int = MotionEventCompat.getActionMasked(event)
+        if(lastaction == action){
+            return super.dispatchTouchEvent(event)
+        }else {
+            lastaction = action
+            return when (action) {
+                MotionEvent.ACTION_DOWN -> {
+                    FileUtil.writeFile(applicationContext,TAG,"ACTION_DOWN","")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_DOWN")
+                    super.dispatchTouchEvent(event)
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    FileUtil.writeFile(applicationContext,TAG,"ACTION_UP","")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_UP")
+                    super.dispatchTouchEvent(event)
+                }
+
+                MotionEvent.ACTION_MOVE -> {
+                    FileUtil.writeFile(applicationContext,TAG,"ACTION_MOVE","")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_MOVE")
+                    super.dispatchTouchEvent(event)
+                }
+
+                MotionEvent.ACTION_CANCEL -> {
+                    FileUtil.writeFile(applicationContext,TAG,"ACTION_CANCEL","")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_CANCEL")
+                    super.dispatchTouchEvent(event)
+                }
+
+                else -> super.dispatchTouchEvent(event)
+            }
         }
     }
 

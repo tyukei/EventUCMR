@@ -4,8 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.view.MotionEventCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
@@ -24,6 +26,7 @@ class DetailActivity : BaseActivity() {
     private lateinit var dateTimeTextView: TextView
     private lateinit var descriptionTextView: TextView
     private lateinit var favriteButton: ImageButton
+    private var lastaction = 0
 
     private var eventId: Int = -1
     private var isfavorite: Boolean = false
@@ -56,6 +59,43 @@ class DetailActivity : BaseActivity() {
             }
         }
         FileUtil.writeFileFinishView(this, TAG)
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        //https://yusuke-hata.hatenablog.com/entry/2014/12/05/234032
+        val action: Int = MotionEventCompat.getActionMasked(event)
+        if (lastaction == action) {
+            return super.dispatchTouchEvent(event)
+        } else {
+            lastaction = action
+            return when (action) {
+                MotionEvent.ACTION_DOWN -> {
+                    FileUtil.writeFile(applicationContext, TAG, "ACTION_DOWN", "")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_DOWN")
+                    super.dispatchTouchEvent(event)
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    FileUtil.writeFile(applicationContext, TAG, "ACTION_UP", "")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_UP")
+                    super.dispatchTouchEvent(event)
+                }
+
+                MotionEvent.ACTION_MOVE -> {
+                    FileUtil.writeFile(applicationContext, TAG, "ACTION_MOVE", "")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_MOVE")
+                    super.dispatchTouchEvent(event)
+                }
+
+                MotionEvent.ACTION_CANCEL -> {
+                    FileUtil.writeFile(applicationContext, TAG, "ACTION_CANCEL", "")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_CANCEL")
+                    super.dispatchTouchEvent(event)
+                }
+
+                else -> super.dispatchTouchEvent(event)
+            }
+        }
     }
 
     private fun initView() {
