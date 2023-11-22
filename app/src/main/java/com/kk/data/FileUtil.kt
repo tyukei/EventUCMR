@@ -8,12 +8,16 @@ import java.time.LocalDateTime
 class FileUtil {
 
     companion object {
-        private val FILENAME = "android-log.csv"
+        private var FILENAME = "android-log.csv"
         private val TAG = "FileUtil"
         private var timeStartView = System.currentTimeMillis()
         private var timeFinishView = System.currentTimeMillis()
         private var timeFinishActivity = System.currentTimeMillis()
         private var lastFavorite = System.currentTimeMillis()
+        init{
+            val currentTime = LocalDateTime.now()
+            FILENAME = "${currentTime}.csv"
+        }
         fun writeFile(context: Context, tag: String, action: String, data: String) {
             try {
                 val currentTime = LocalDateTime.now()
