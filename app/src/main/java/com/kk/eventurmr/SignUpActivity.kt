@@ -13,13 +13,18 @@ import androidx.core.view.MotionEventCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
+import com.kk.data.Event
 import com.kk.data.EventDBUtil
 import com.kk.data.FileUtil
+import com.kk.data.TimeUtil
 import com.kk.data.URLUtil
 import com.kk.data.User
 import com.kk.data.UserId
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
@@ -93,7 +98,7 @@ class SignUpActivity : AppCompatActivity() {
         nameEditText = findViewById(R.id.nameEditText)
         nameEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                FileUtil.writeFileKeyBoard(applicationContext,TAG,s.toString().trim())
+                FileUtil.writeFileKeyBoard(applicationContext,TAG,"NAME",s.toString().trim())
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -101,7 +106,7 @@ class SignUpActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.emailEditText)
         emailEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                FileUtil.writeFileKeyBoard(applicationContext,TAG,s.toString().trim())
+                FileUtil.writeFileKeyBoard(applicationContext,TAG,"EMAIL",s.toString().trim())
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -109,7 +114,7 @@ class SignUpActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.passwordEditText)
         passwordEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                FileUtil.writeFileKeyBoard(applicationContext,TAG,s.toString().trim())
+                FileUtil.writeFileKeyBoard(applicationContext,TAG,"PASSWORD",s.toString().trim())
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -148,6 +153,7 @@ class SignUpActivity : AppCompatActivity() {
                     val id = db.userDao().getIdByEmail(email)
                     UserId.id = id!!
                     // go to MainActivity
+                    getInfoFormURL()
                     val intent = intent
                     intent.setClass(this@SignUpActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -156,6 +162,50 @@ class SignUpActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "Exception: $e")
+            }
+        }
+    }
+    private fun getInfoFormURL() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // Database operation: clear all events
+                db.eventDao().clearAllEvents()
+                // Network operation: fetch the document
+                val document: Document =
+                    Jsoup.connect("https://events.ucmerced.edu/calendar/1.xml").get()
+                val nodes = document.select("channel")
+                val items = nodes.select("item")
+                val itemLength = items.size
+
+                for (i in 0 until itemLength) {
+                    var title = items[i].select("title").text()
+                    if (title.contains("2023: ")) {
+                        val temp = title.split("2023: ")
+                        title = temp[1]
+                    } else if (title.contains("2024:")) {
+                        continue
+                    }
+
+//                    if (title.contains("at")) {
+//                        title = title.substringBefore("at")
+//                    }
+                    val cdataContent = items[i].select("description").text()
+                    val parsedCdata = Jsoup.parse(cdataContent)
+                    val firstParagraph = parsedCdata.select("p").first().text()
+                    val time = items[i].select("pubDate").text()
+                    val timeInt = TimeUtil.convertDateFormat(time)
+                    val link = items[i].select("link").text()
+
+                    // Generate the next ID for the event
+                    val id = db.eventDao().getNextId() + 1
+                    // Create an event object
+                    val event = Event(id, title, link, timeInt, firstParagraph, false)
+                    Log.d(TAG, "Event: $event")
+                    // Insert the event into the database
+                    db.eventDao().insertEvent(event)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

@@ -120,12 +120,25 @@ class FileUtil {
             }
         }
 
-        fun writeFileKeyBoard(context: Context, tag: String, eventName: String) {
+        fun writeFileKeyBoard(context: Context, tag: String, eventName: String, data: String) {
             try {
                 val currentTime = LocalDateTime.now()
                 val uid = UserId.id
                 val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
-                val log = "$currentTime,$uid,$tag,TAP_KEYBOARD,$eventName\n"
+                val log = "$currentTime,$uid,$tag,KEYBOARD_$eventName,$data\n"
+                Log.d(TAG, log)
+                fos.write(log.toByteArray())
+                fos.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        fun writeFileButton(context: Context, tag: String, eventName: String) {
+            try {
+                val currentTime = LocalDateTime.now()
+                val uid = UserId.id
+                val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
+                val log = "$currentTime,$uid,$tag,TAP_BUTTON,$eventName\n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()
