@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
+import com.kk.data.FileUtil
 import com.kk.data.TimeUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,8 +39,8 @@ class DetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FileUtil.writeFileStartView(this, TAG)
         setContentView(R.layout.activity_detail)
-
         initView()
         setupMenuBar()
         setDB()
@@ -48,6 +49,7 @@ class DetailActivity : BaseActivity() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
+        FileUtil.writeFileFinishView(this, TAG)
     }
 
     private fun initView() {

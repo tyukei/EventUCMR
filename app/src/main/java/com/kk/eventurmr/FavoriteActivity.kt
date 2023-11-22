@@ -14,6 +14,7 @@ import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 
 class FavoriteActivity : BaseActivity() {
 
@@ -29,13 +30,14 @@ class FavoriteActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FileUtil.writeFileStartView(this, TAG)
         setContentView(R.layout.activity_favorite)
-
         initializeViews()
         setupFavoritesListView()
         setupMenuBar()
         highlightSelectedIcon(R.id.favoriteImageView)
         getFavoriteEvent()
+        FileUtil.writeFileFinishView(this, TAG)
     }
 
 

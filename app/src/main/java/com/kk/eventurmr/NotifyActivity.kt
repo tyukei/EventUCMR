@@ -32,15 +32,17 @@ class NotifyActivity : BaseActivity() {
         ).build()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FileUtil.writeFileStartView(this, TAG)
         setContentView(R.layout.activity_notify) // make sure to use the correct layout file name
         initializeViews()
         setuptNotifyListView()
         setupMenuBar()
         highlightSelectedIcon(R.id.notificationImageView)
         getNotifyEvent()
+        FileUtil.writeFileFinishView(this, TAG)
     }
 
     private fun initializeViews() {

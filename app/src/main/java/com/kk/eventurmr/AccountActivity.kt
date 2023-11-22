@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
+import com.kk.data.FileUtil
 import com.kk.data.UserId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,6 +16,7 @@ class AccountActivity : BaseActivity() {
     private lateinit var nameTextView: TextView
     private lateinit var emailTextView: TextView
     private lateinit var signOutButton: Button
+    private val TAG = "AccountActivity"
 
     private val db by lazy {
         Room.databaseBuilder(
@@ -26,6 +28,7 @@ class AccountActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FileUtil.writeFileStartView(this, TAG)
         setContentView(R.layout.activity_account)
         setupViews()
         setupMenuBar()
@@ -36,6 +39,7 @@ class AccountActivity : BaseActivity() {
             intent.setClass(this@AccountActivity, SignInActivity::class.java)
             startActivity(intent)
         }
+        FileUtil.writeFileFinishView(this, TAG)
     }
 
     private fun setupViews() {

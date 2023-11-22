@@ -9,6 +9,7 @@ import android.widget.ListView
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
+import com.kk.data.FileUtil
 import com.kk.data.TimeUtil
 import com.kk.eventurmr.list.EventAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -40,8 +41,8 @@ class SearchActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FileUtil.writeFileStartView(this, TAG)
         setContentView(R.layout.activity_search)
-
         searchEditText = findViewById(R.id.searchEditText)
         searchResultsListView = findViewById(R.id.searchResultsListView)
         initlist()
@@ -49,6 +50,7 @@ class SearchActivity : BaseActivity() {
         highlightSelectedIcon(R.id.searchImageView)
         setupSearchEditText()
         setupSearchResultsListView()
+        FileUtil.writeFileFinishView(this, TAG)
     }
 
     private fun initlist() {

@@ -32,12 +32,14 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FileUtil.writeFileStartView(this, TAG)
         setContentView(R.layout.activity_main) // Use the correct layout file name here
         setupMenuBar()
         highlightSelectedIcon(R.id.homeImageView)
         setupListView()
         setupMenuBar()
         highlightSelectedIcon(R.id.homeImageView)
+        FileUtil.writeFileFinishView(this, TAG)
     }
 
     private fun setupListView() {
