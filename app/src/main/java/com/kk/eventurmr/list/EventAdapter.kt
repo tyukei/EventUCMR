@@ -42,9 +42,13 @@ class EventAdapter(context: Context, events: List<Event>, private val db: AppDat
         val eventMapImageView = view.findViewById<ImageView>(R.id.eventMap)
         eventMapImageView.isFocusable = false
         eventMapImageView.setOnClickListener {
-            val uri = Uri.parse("geo:0,0?q=${event?.location}")
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            context.startActivity(intent)
+//            val uri = Uri.parse("geo:0,0?q=${event?.location}")
+//            val intent = Intent(Intent.ACTION_VIEW, uri)
+//            context.startActivity(intent)
+            Intent(Intent.ACTION_VIEW).also {
+                it.data = Uri.parse(event?.location)
+                context.startActivity(it)
+            }
         }
         val eventFavoriteImageView = view.findViewById<ImageView>(R.id.eventFavorite)
         eventFavoriteImageView.isFocusable = false

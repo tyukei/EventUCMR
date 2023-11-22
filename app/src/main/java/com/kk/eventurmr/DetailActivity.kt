@@ -45,9 +45,15 @@ class DetailActivity : BaseActivity() {
         setupMenuBar()
         setDB()
         locationTextView.setOnClickListener {
-            val uri = Uri.parse("geo:0,0?q=$locationStr")
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            startActivity(intent)
+//            val uri = Uri.parse("geo:0,0?q=$locationStr")
+//            val intent = Intent(Intent.ACTION_VIEW, uri)
+//            startActivity(intent)
+
+            Intent(Intent.ACTION_VIEW).also {
+                it.data = Uri.parse(locationStr)
+                it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // この行を追加
+                applicationContext.startActivity(it)
+            }
         }
         FileUtil.writeFileFinishView(this, TAG)
     }
