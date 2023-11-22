@@ -126,6 +126,7 @@ class FavoriteActivity : BaseActivity() {
                 TAG, "TAP_LIST",
                 "${favoriteEvents[position].name}"
             )
+            FileUtil.writeFileFinishActivity(applicationContext, TAG,"DetailActivity")
             val intent = Intent(this@FavoriteActivity, DetailActivity::class.java)
             intent.putExtra("eventId", favoriteEvents[position].id)
             startActivity(intent)

@@ -36,6 +36,8 @@ class AccountActivity : BaseActivity() {
         signOutButton.setOnClickListener {
             UserId.id = 0
             val intent = intent
+            FileUtil.writeFileButton(applicationContext, TAG, "SIGN_OUT")
+            FileUtil.writeFileFinishActivity(applicationContext, TAG,"SingInActivity")
             intent.setClass(this@AccountActivity, SignInActivity::class.java)
             startActivity(intent)
         }

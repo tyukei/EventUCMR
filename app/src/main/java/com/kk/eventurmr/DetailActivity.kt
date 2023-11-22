@@ -52,7 +52,8 @@ class DetailActivity : BaseActivity() {
 //            val uri = Uri.parse("geo:0,0?q=$locationStr")
 //            val intent = Intent(Intent.ACTION_VIEW, uri)
 //            startActivity(intent)
-
+            FileUtil.writeFileButton(applicationContext, TAG, "MAP")
+            FileUtil.writeFileFinishActivity(applicationContext, TAG,"WebActivity")
             Intent(Intent.ACTION_VIEW).also {
                 it.data = Uri.parse(locationStr)
                 it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // この行を追加
@@ -106,6 +107,7 @@ class DetailActivity : BaseActivity() {
         descriptionTextView = findViewById(R.id.descriptionTextView)
         favriteButton = findViewById(R.id.favoriteImageButton)
         favriteButton.setOnClickListener {
+            FileUtil.writeFileButton(applicationContext, TAG, "FAVORITE")
             onClickFavorite()
         }
     }
