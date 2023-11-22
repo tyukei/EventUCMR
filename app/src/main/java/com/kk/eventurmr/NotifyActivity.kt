@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
@@ -24,7 +23,7 @@ class NotifyActivity : BaseActivity() {
 
     private lateinit var notifyListView: ListView
     private lateinit var adapter: EventAdapter
-    private var TAG = "NotifyActivity"
+    private var TAG = "Upcomming"
 
     private val db by lazy {
         Room.databaseBuilder(
@@ -50,7 +49,7 @@ class NotifyActivity : BaseActivity() {
 
     private fun setuptNotifyListView() {
         val notifyItems = ArrayList<Event>()
-        adapter = EventAdapter(this@NotifyActivity, notifyItems,db) // 初期化
+        adapter = EventAdapter(this@NotifyActivity, notifyItems, db) // 初期化
         notifyListView.adapter = adapter
     }
 
@@ -79,6 +78,7 @@ class NotifyActivity : BaseActivity() {
             }
         }
     }
+
     private fun updateListView(notifyEvents: List<Event>) {
         adapter.clear()
         adapter.addAll(notifyEvents) // リストを更新
@@ -87,6 +87,8 @@ class NotifyActivity : BaseActivity() {
             Log.d(TAG, "Item clicked: ${notifyEvents[position].name}")
             FileUtil.writeFile(
                 applicationContext,
+                TAG,
+                "TAP",
                 "Tap:${notifyEvents[position].name}"
             )
             val intent = Intent(this@NotifyActivity, DetailActivity::class.java)

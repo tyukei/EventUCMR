@@ -21,6 +21,7 @@ class SearchActivity : BaseActivity() {
     private lateinit var searchEditText: EditText
     private lateinit var searchResultsListView: ListView
     private lateinit var adapter: EventAdapter
+    private val TAG = "SearchActivity"
 
     // Original full list of items
     private val allItems = mutableListOf<String>()

@@ -3,13 +3,13 @@ package com.kk.eventurmr
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.ListView
-import androidx.core.content.ContextCompat
+import androidx.core.view.MotionEventCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.Event
-import com.kk.data.EventDBUtil
 import com.kk.data.FileUtil
 import com.kk.data.TimeUtil
 import com.kk.eventurmr.list.EventAdapter
@@ -39,6 +39,7 @@ class MainActivity : BaseActivity() {
         setupMenuBar()
         highlightSelectedIcon(R.id.homeImageView)
     }
+
     private fun setupListView() {
         eventsListView = findViewById(R.id.eventsListView)
         lifecycleScope.launch {
@@ -48,12 +49,14 @@ class MainActivity : BaseActivity() {
                     Log.d(TAG, "Event: ${event.name}")
                 }
                 withContext(Dispatchers.Main) {
-                    val adapter = EventAdapter(this@MainActivity, events,db)
+                    val adapter = EventAdapter(this@MainActivity, events, db)
                     eventsListView.adapter = adapter
                     eventsListView.setOnItemClickListener { _, _, position, _ ->
                         Log.d(TAG, "Item clicked: ${events[position].name}")
                         FileUtil.writeFile(
                             applicationContext,
+                            TAG,
+                            "TAP",
                             "Tap:${events[position].name}"
                         )
                         val intent = Intent(this@MainActivity, DetailActivity::class.java)
@@ -64,6 +67,34 @@ class MainActivity : BaseActivity() {
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching events from database", e)
             }
+        }
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        //https://yusuke-hata.hatenablog.com/entry/2014/12/05/234032
+        val action: Int = MotionEventCompat.getActionMasked(event)
+        return when (action) {
+            MotionEvent.ACTION_DOWN -> {
+                Log.d(TAG, "dispatchTouchEvent: ACTION_DOWN")
+                super.dispatchTouchEvent(event)
+            }
+
+            MotionEvent.ACTION_UP -> {
+                Log.d(TAG, "dispatchTouchEvent: ACTION_UP")
+                super.dispatchTouchEvent(event)
+            }
+
+            MotionEvent.ACTION_MOVE -> {
+                Log.d(TAG, "dispatchTouchEvent: ACTION_MOVE")
+                super.dispatchTouchEvent(event)
+            }
+
+            MotionEvent.ACTION_CANCEL -> {
+                Log.d(TAG, "dispatchTouchEvent: ACTION_CANCEL")
+                super.dispatchTouchEvent(event)
+            }
+
+            else -> super.dispatchTouchEvent(event)
         }
     }
 

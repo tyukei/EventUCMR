@@ -9,14 +9,13 @@ class FileUtil {
 
     companion object {
         private val TAG = "FileUtil"
-        fun writeFile(context: Context, data: String) {
-            Log.d(TAG, "writeFile: $data")
+        fun writeFile(context: Context, tag: String, action: String, data: String) {
             try {
                 val currentTime = LocalDateTime.now()
                 val fos = context.openFileOutput("tap_log.txt", Context.MODE_APPEND)
-                fos.write(
-                    "$currentTime,$data".toByteArray()
-                )
+                val log = "$currentTime,$tag,$action,$data"
+                Log.d(TAG, log)
+                fos.write(log.toByteArray())
                 fos.close()
             } catch (e: IOException) {
                 e.printStackTrace()

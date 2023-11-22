@@ -68,8 +68,9 @@ class SignInActivity : AppCompatActivity() {
 
                 val nodes = document.select("channel")
                 val items = nodes.select("item")
+                val itemLengh = items.size
 
-                for (i in 0 until 50) {
+                for (i in 0 until itemLengh ) {
                     val title = items[i].select("title").text()
                     val cdataContent = items[i].select("description").text()
                     val parsedCdata = Jsoup.parse(cdataContent)
