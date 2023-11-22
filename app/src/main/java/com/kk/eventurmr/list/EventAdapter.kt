@@ -88,7 +88,7 @@ class EventAdapter(context: Context, events: List<Event>, private val db: AppDat
                             db.favoriteDao().dropFavorite(UserId.id, eid)
                         }
                     }
-                    db.eventDao().updateFavorite(event.id)
+                    db.eventDao().updateUnFavorite(event.id)
                 }
                 eventFavoriteImageView.setBackgroundResource(R.drawable.ic_favorite)
             }
