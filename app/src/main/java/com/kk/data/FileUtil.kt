@@ -21,8 +21,9 @@ class FileUtil {
         fun writeFile(context: Context, tag: String, action: String, data: String) {
             try {
                 val currentTime = LocalDateTime.now()
+                val uid = UserId.id
                 val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
-                val log = "$currentTime,$tag,$action,$data \n"
+                val log = "$currentTime,$uid,$tag,$action,$data \n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()
@@ -35,8 +36,9 @@ class FileUtil {
             try {
                 timeStartView = System.currentTimeMillis()
                 val currentTime = LocalDateTime.now()
+                val uid = UserId.id
                 val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
-                val log = "$currentTime,$tag,START_SHOWING_VIEW, \n"
+                val log = "$currentTime,$uid,$tag,START_SHOWING_VIEW, \n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()
@@ -49,9 +51,10 @@ class FileUtil {
             try {
                 timeFinishView = System.currentTimeMillis()
                 val currentTime = LocalDateTime.now()
+                val uid = UserId.id
                 val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
                 val log =
-                    "$currentTime,$tag,FINISH_SHOWING_VIEW,\n$currentTime,$tag,TIME_SHOWING,${(timeFinishView - timeStartView)}\n"
+                    "$currentTime,$uid,$tag,FINISH_SHOWING_VIEW,\n$currentTime,$uid,$tag,TIME_SHOWING,${(timeFinishView - timeStartView)}\n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()
@@ -64,9 +67,10 @@ class FileUtil {
             try {
                 timeFinishActivity = System.currentTimeMillis()
                 val currentTime = LocalDateTime.now()
+                val uid = UserId.id
                 val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
                 val log =
-                    "$currentTime,$tag,FINISH_ACTIVITY,$destination\n$currentTime,$tag,TIME_ACTIVITY,${(timeFinishActivity - timeStartView)}\n"
+                    "$currentTime,$uid,$tag,FINISH_ACTIVITY,$destination\n$currentTime,$uid,$tag,TIME_ACTIVITY,${(timeFinishActivity - timeStartView)}\n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()
@@ -80,10 +84,11 @@ class FileUtil {
         fun writeFileFavorite(context: Context, tag: String, eventName: String) {
             try {
                 val currentTime = LocalDateTime.now()
+                val uid = UserId.id
                 val currentFavorite = System.currentTimeMillis()
                 val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
                 val log =
-                    "$currentTime,$tag,TAP_FAVORITE,$eventName\n$currentTime,$tag,TIME_FAVORITE,${currentFavorite - lastFavorite}\n"
+                    "$currentTime,$uid,$tag,TAP_FAVORITE,$eventName\n$currentTime,$uid,$tag,TIME_FAVORITE,${currentFavorite - lastFavorite}\n"
                 lastFavorite = currentFavorite
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
@@ -96,9 +101,10 @@ class FileUtil {
         fun writeFileUnFavorite(context: Context, tag: String, eventName: String) {
             try {
                 val currentTime = LocalDateTime.now()
+                val uid = UserId.id
                 val currentFavorite = System.currentTimeMillis()
                 val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
-                val log = "$currentTime,$tag,TAP_UNFAVORITE,$eventName\n"
+                val log = "$currentTime,$uid,$tag,TAP_UNFAVORITE,$eventName\n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()
