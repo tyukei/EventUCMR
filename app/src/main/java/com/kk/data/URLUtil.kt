@@ -26,9 +26,12 @@ class URLUtil {
                 val node = items.item(i)
                 if (node.nodeType == Node.ELEMENT_NODE) {
                     val element = node as Element
+                    var title = element.getElementsByTagName("title").item(0).textContent
+//                    if(title.contains(":")) {
+//                        title = title.substringAfter(title,":")
+//                    }
 
-                    val title = element.getElementsByTagName("title").item(0).textContent
-                    val description =
+                    val description=
                         element.getElementsByTagName("description").item(0).textContent
                     val link = element.getElementsByTagName("link").item(0).textContent
                     val pubDate = element.getElementsByTagName("pubDate").item(0).textContent

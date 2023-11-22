@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.kk.data.AppDatabase
 import com.kk.data.EventDBUtil
+import com.kk.data.URLUtil
 import com.kk.data.User
 import com.kk.data.UserId
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,7 @@ class SignUpActivity : AppCompatActivity() {
         Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "event-database"
-        )    .fallbackToDestructiveMigration()
+        ).fallbackToDestructiveMigration()
             .build()
 
     }
@@ -73,7 +74,7 @@ class SignUpActivity : AppCompatActivity() {
         val password = passwordEditText.text.toString()
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val id = db.userDao().getNextId()
+                val id = db.userDao().getNextId() + 1
                 val user = User(id, name, email, password)
                 Log.d(TAG, "User: $user")
                 db.userDao().insertUser(user)
@@ -83,7 +84,6 @@ class SignUpActivity : AppCompatActivity() {
                     Log.d(TAG, "Password: $password")
                     val id = db.userDao().getIdByEmail(email)
                     UserId.id = id!!
-                    eventDBUtil.addEventsToDatabase(lifecycleScope)
                     // go to MainActivity
                     val intent = intent
                     intent.setClass(this@SignUpActivity, MainActivity::class.java)

@@ -15,7 +15,7 @@ class FileUtil {
             try {
                 val currentTime = LocalDateTime.now()
                 val fos = context.openFileOutput("tap_log.txt", Context.MODE_APPEND)
-                val log = "$currentTime,$tag,$action,$data"
+                val log = "$currentTime,$tag,$action,$data \n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()
@@ -29,7 +29,7 @@ class FileUtil {
                 timeStartView = System.currentTimeMillis()
                 val currentTime = LocalDateTime.now()
                 val fos = context.openFileOutput("tap_log.txt", Context.MODE_APPEND)
-                val log = "$currentTime,$tag,START_SHOWING_VIEW,"
+                val log = "$currentTime,$tag,START_SHOWING_VIEW, \n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()
@@ -43,7 +43,7 @@ class FileUtil {
                 timeFinishView = System.currentTimeMillis()
                 val currentTime = LocalDateTime.now()
                 val fos = context.openFileOutput("tap_log.txt", Context.MODE_APPEND)
-                val log = "$currentTime,$tag,FINISH_SHOWING_VIEW,${timeFinishView - timeStartView}"
+                val log = "$currentTime,$tag,FINISH_SHOWING_VIEW,${(timeFinishView - timeStartView)} \n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()

@@ -12,6 +12,7 @@ import com.kk.data.AppDatabase
 import com.kk.data.Event
 import com.kk.data.FileUtil
 import com.kk.data.TimeUtil
+import com.kk.data.URLUtil
 import com.kk.data.UserId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -63,17 +64,19 @@ class SignInActivity : AppCompatActivity() {
             try {
                 // Database operation: clear all events
                 db.eventDao().clearAllEvents()
-
                 // Network operation: fetch the document
                 val document: Document =
                     Jsoup.connect("https://events.ucmerced.edu/calendar/1.xml").get()
-
                 val nodes = document.select("channel")
                 val items = nodes.select("item")
                 val itemLength = items.size
 
                 for (i in 0 until itemLength) {
-                    val title = items[i].select("title").text()
+                    var title = items[i].select("title").text()
+                    if(title.contains("2023:")) {
+                        val temp = title.split("2023:")
+                        title = temp[1]
+                    }
                     val cdataContent = items[i].select("description").text()
                     val parsedCdata = Jsoup.parse(cdataContent)
                     val firstParagraph = parsedCdata.select("p").first().text()
