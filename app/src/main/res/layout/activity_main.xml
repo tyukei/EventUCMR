@@ -7,6 +7,17 @@
         android:id="@+id/titleBar"
         layout="@layout/title" />
 
+    <Button
+        android:id="@+id/refreshBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="refresh"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="20sp"
+        android:gravity="center"
+        android:visibility="gone"
+        />
     <!-- List of events -->
     <ListView
         android:id="@+id/eventsListView"
@@ -17,6 +28,7 @@
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.5dp"
         android:padding="16dp" />
+
 
 
     <include

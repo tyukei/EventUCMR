@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.widget.Button
 import android.widget.ListView
 import androidx.core.view.MotionEventCompat
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : BaseActivity() {
     private val TAG = "MainActivity"
     private lateinit var eventsListView: ListView
+    private lateinit var refreshBtn: Button
 
     // Roomデータベースのインスタンスを作成
     private val db by lazy {
@@ -33,12 +35,11 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FileUtil.writeFileStartView(this, TAG)
-        setContentView(R.layout.activity_main) // Use the correct layout file name here
+        setContentView(R.layout.activity_main)
         setupMenuBar()
         highlightSelectedIcon(R.id.homeImageView)
+        refreshBtn = findViewById(R.id.refreshBtn)
         setupListView()
-        setupMenuBar()
-        highlightSelectedIcon(R.id.homeImageView)
         FileUtil.writeFileFinishView(this, TAG)
     }
 
@@ -47,12 +48,19 @@ class MainActivity : BaseActivity() {
         lifecycleScope.launch {
             try {
                 val events = getEventsFromDatabase()
-                for (event in events) {
-                    Log.d(TAG, "Event: ${event.name}")
-                }
                 withContext(Dispatchers.Main) {
                     val adapter = EventAdapter(this@MainActivity, events, db)
                     eventsListView.adapter = adapter
+                    if(events.isEmpty()){
+                        Log.d(TAG, "No events")
+                        refreshBtn.visibility = Button.VISIBLE
+                        refreshBtn.setOnClickListener {
+                            refreshBtn.visibility = Button.GONE
+                            val intent = Intent(this@MainActivity, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+
+                    }
                     eventsListView.setOnItemClickListener { _, _, position, _ ->
                         Log.d(TAG, "Item clicked: ${events[position].name}")
                         FileUtil.writeFile(

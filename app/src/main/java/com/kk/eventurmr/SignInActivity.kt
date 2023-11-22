@@ -39,6 +39,7 @@ class SignInActivity : AppCompatActivity() {
     private val eventDBUtil by lazy { com.kk.data.EventDBUtil(db) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // log the start of the view
         FileUtil.writeFileStartView(this, TAG)
         setContentView(R.layout.activity_signin) // Set the content view to the sign-in layou
         setupViews()
@@ -55,6 +56,7 @@ class SignInActivity : AppCompatActivity() {
         }
         viewUserDB()
         getInfoFormURL()
+        // log the end of the view
         FileUtil.writeFileFinishView(this, TAG)
     }
 
