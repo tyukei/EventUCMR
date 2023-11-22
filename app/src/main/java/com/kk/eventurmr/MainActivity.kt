@@ -56,7 +56,9 @@ class MainActivity : BaseActivity() {
                         Log.d(TAG, "No events")
                         refreshBtn.visibility = Button.VISIBLE
                         refreshBtn.setOnClickListener {
+                            FileUtil.writeFileButton(applicationContext, TAG, "REFRESH")
                             refreshBtn.visibility = Button.GONE
+                            FileUtil.writeFileFinishActivity(applicationContext, TAG,"MainActivity")
                             val intent = Intent(this@MainActivity, MainActivity::class.java)
                             startActivity(intent)
                         }
@@ -70,6 +72,7 @@ class MainActivity : BaseActivity() {
                             "TAP_LIST",
                             "${events[position].name}"
                         )
+                        FileUtil.writeFileFinishActivity(applicationContext, TAG,"DetailActivity")
                         val intent = Intent(this@MainActivity, DetailActivity::class.java)
                         intent.putExtra("eventId", events[position].id)
                         startActivity(intent)
