@@ -51,9 +51,12 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signup) // Set the content view to the sign-in layou
         setupViews()
         signInButton.setOnClickListener {
+            FileUtil.writeFileButton(this, TAG, "SIGN_IN")
+            FileUtil.writeFileFinishActivity(this, TAG,"SingInActivity")
             finish()
         }
         signUpButton.setOnClickListener {
+            FileUtil.writeFileButton(this, TAG, "SIGN_UP")
             checkIfUserIsSignedUp()
         }
     }
@@ -154,6 +157,7 @@ class SignUpActivity : AppCompatActivity() {
                     UserId.id = id!!
                     // go to MainActivity
                     getInfoFormURL()
+                    FileUtil.writeFileFinishActivity(applicationContext, TAG,"MainActivity")
                     val intent = intent
                     intent.setClass(this@SignUpActivity, MainActivity::class.java)
                     startActivity(intent)
