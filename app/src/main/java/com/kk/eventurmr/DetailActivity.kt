@@ -29,6 +29,7 @@ class DetailActivity : BaseActivity() {
     private var lastaction = 0
 
     private var eventId: Int = -1
+    private var eventName:String =""
     private var isfavorite: Boolean = false
     private var locationStr: String = "Kyoto"
 
@@ -116,7 +117,8 @@ class DetailActivity : BaseActivity() {
             Log.d(TAG, "event:$event")
             event?.let {
                 withContext(Dispatchers.Main) {
-                    titleTextView.text = it.name
+                    eventName = it.name
+                    titleTextView.text = eventName
                     locationTextView.text = it.location
                     locationStr = it.location
                     val timeInt = it.dateTime
@@ -138,12 +140,14 @@ class DetailActivity : BaseActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 if (isfavorite) {
+                    FileUtil.writeFileUnFavorite(applicationContext,TAG, eventName)
                     db.eventDao().updateUnFavorite(eventId)
                     isfavorite = false
                     favriteButton.setBackgroundResource(R.drawable.ic_favorite)
                     var event = db.eventDao().getEventById(eventId)
                     Log.d(TAG, "event:$event")
                 } else {
+                    FileUtil.writeFileFavorite(applicationContext,TAG,eventName)
                     db.eventDao().updateFavorite(eventId)
                     isfavorite = true
                     favriteButton.setBackgroundResource(R.drawable.ic_favorite_selected)

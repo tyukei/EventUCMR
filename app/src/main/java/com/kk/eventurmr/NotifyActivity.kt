@@ -129,8 +129,8 @@ class NotifyActivity : BaseActivity() {
             FileUtil.writeFile(
                 applicationContext,
                 TAG,
-                "TAP",
-                "Tap:${notifyEvents[position].name}"
+                "TAP_LIST",
+                "${notifyEvents[position].name}"
             )
             val intent = Intent(this@NotifyActivity, DetailActivity::class.java)
             intent.putExtra("eventId", notifyEvents[position].id)

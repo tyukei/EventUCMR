@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.kk.data.FileUtil
 
 open class BaseActivity : AppCompatActivity() {
+    private val TAG = "MenuBar"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +83,8 @@ open class BaseActivity : AppCompatActivity() {
 
     private fun navigateTo(destination: Class<*>) {
         if (this::class.java != destination) {
+            val destinationName = destination.simpleName
+            FileUtil.writeFileFinishActivity(applicationContext,TAG,destinationName)
             val intent = Intent(this, destination)
             startActivity(intent)
             overridePendingTransition(0, 0) // Optional: remove animations

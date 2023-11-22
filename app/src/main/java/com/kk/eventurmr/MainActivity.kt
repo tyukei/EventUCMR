@@ -67,8 +67,8 @@ class MainActivity : BaseActivity() {
                         FileUtil.writeFile(
                             applicationContext,
                             TAG,
-                            "TAP",
-                            "Tap:${events[position].name}"
+                            "TAP_LIST",
+                            "${events[position].name}"
                         )
                         val intent = Intent(this@MainActivity, DetailActivity::class.java)
                         intent.putExtra("eventId", events[position].id)

@@ -123,8 +123,8 @@ class FavoriteActivity : BaseActivity() {
             Log.d(TAG, "Item clicked: ${favoriteEvents[position].name}")
             FileUtil.writeFile(
                 applicationContext,
-                TAG, "TAP",
-                "Tap:${favoriteEvents[position].name}"
+                TAG, "TAP_LIST",
+                "${favoriteEvents[position].name}"
             )
             val intent = Intent(this@FavoriteActivity, DetailActivity::class.java)
             intent.putExtra("eventId", favoriteEvents[position].id)

@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.kk.data.AppDatabase
 import com.kk.data.Event
 import com.kk.data.Favorite
+import com.kk.data.FileUtil
 import com.kk.data.TimeUtil
 import com.kk.data.UserId
 import com.kk.eventurmr.R
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 
 class EventAdapter(context: Context, events: List<Event>, private val db: AppDatabase) :
     ArrayAdapter<Event>(context, 0, events) {
+    private val TAG = "EventAdapter"
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val event = getItem(position)
         val view =
@@ -59,6 +61,7 @@ class EventAdapter(context: Context, events: List<Event>, private val db: AppDat
             Log.d("EventAdapter", "eventFavoriteImageView clicked")
             if (event?.isfavorite == false) {
                 // Update to favorite
+                FileUtil.writeFileFavorite(context,TAG,event.name)
                 Log.d("EventAdapter", "${event.id} is favorite")
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
@@ -76,6 +79,7 @@ class EventAdapter(context: Context, events: List<Event>, private val db: AppDat
                 eventFavoriteImageView.setBackgroundResource(R.drawable.ic_favorite_selected)
             } else if(event?.isfavorite == true) {
                 // Update to unfavorite
+                FileUtil.writeFileUnFavorite(context,TAG,event.name)
                 Log.d("EventAdapter", "${event.id} is  not favorite")
                 CoroutineScope(Dispatchers.IO).launch {
                     val eids = db.favoriteDao().getEidByUid(UserId.id)
