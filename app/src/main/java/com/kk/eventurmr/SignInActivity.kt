@@ -81,9 +81,9 @@ class SignInActivity : AppCompatActivity() {
                         continue
                     }
 
-                    if (title.contains("at")) {
-                        title = title.substringBefore("at")
-                    }
+//                    if (title.contains("at")) {
+//                        title = title.substringBefore("at")
+//                    }
                     val cdataContent = items[i].select("description").text()
                     val parsedCdata = Jsoup.parse(cdataContent)
                     val firstParagraph = parsedCdata.select("p").first().text()
