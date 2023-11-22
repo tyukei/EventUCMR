@@ -1,6 +1,8 @@
 package com.kk.eventurmr
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
 import android.widget.Button
@@ -89,8 +91,29 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setupViews() {
         nameEditText = findViewById(R.id.nameEditText)
+        nameEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                FileUtil.writeFileKeyBoard(applicationContext,TAG,s.toString().trim())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
         emailEditText = findViewById(R.id.emailEditText)
+        emailEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                FileUtil.writeFileKeyBoard(applicationContext,TAG,s.toString().trim())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
         passwordEditText = findViewById(R.id.passwordEditText)
+        passwordEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                FileUtil.writeFileKeyBoard(applicationContext,TAG,s.toString().trim())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
         signInButton = findViewById(R.id.signUpToSignInButton)
         signUpButton = findViewById(R.id.signUpButton)
         signInButton.background.alpha = 0

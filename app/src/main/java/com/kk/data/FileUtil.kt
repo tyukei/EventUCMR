@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import java.io.IOException
 import java.time.LocalDateTime
+import java.time.ZoneId
+
 
 class FileUtil {
 
@@ -16,7 +18,10 @@ class FileUtil {
         private var lastFavorite = System.currentTimeMillis()
         init{
             val currentTime = LocalDateTime.now()
-            FILENAME = "${currentTime}.csv"
+            val zonedCurrentTime = currentTime.atZone(ZoneId.systemDefault())
+            val pstTime = zonedCurrentTime.withZoneSameInstant(ZoneId.of("America/Los_Angeles"))
+
+            FILENAME = "${pstTime}.csv"
         }
         fun writeFile(context: Context, tag: String, action: String, data: String) {
             try {
@@ -105,6 +110,20 @@ class FileUtil {
                 val currentFavorite = System.currentTimeMillis()
                 val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
                 val log = "$currentTime,$uid,$tag,TAP_UNFAVORITE,$eventName\n"
+                Log.d(TAG, log)
+                fos.write(log.toByteArray())
+                fos.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+
+        fun writeFileKeyBoard(context: Context, tag: String, eventName: String) {
+            try {
+                val currentTime = LocalDateTime.now()
+                val uid = UserId.id
+                val fos = context.openFileOutput(FILENAME, Context.MODE_APPEND)
+                val log = "$currentTime,$uid,$tag,TAP_KEYBOARD,$eventName\n"
                 Log.d(TAG, log)
                 fos.write(log.toByteArray())
                 fos.close()

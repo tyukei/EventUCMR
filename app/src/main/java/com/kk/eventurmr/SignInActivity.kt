@@ -1,6 +1,8 @@
 package com.kk.eventurmr
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
 import android.widget.Button
@@ -158,7 +160,21 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setupViews() {
         emailEditText = findViewById(R.id.signInemailEditText)
+        emailEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                FileUtil.writeFileKeyBoard(applicationContext,TAG,s.toString().trim())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
         passwordEditText = findViewById(R.id.signInpasswordEditText)
+        passwordEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                FileUtil.writeFileKeyBoard(applicationContext,TAG,s.toString().trim())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
         signInButton = findViewById(R.id.signInButton)
         signUpButton = findViewById(R.id.signInToSignUpButton)
         signUpButton.background.alpha = 0
