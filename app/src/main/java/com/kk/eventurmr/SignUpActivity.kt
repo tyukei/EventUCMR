@@ -158,6 +158,6 @@ class SignUpActivity : AppCompatActivity() {
                 Log.d(TAG, "Exception: $e")
             }
         }
-
     }
+
 }

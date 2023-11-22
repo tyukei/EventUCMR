@@ -5,6 +5,7 @@ import android.util.Log
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 
 class FileUtil {
@@ -19,9 +20,10 @@ class FileUtil {
         init{
             val currentTime = LocalDateTime.now()
             val zonedCurrentTime = currentTime.atZone(ZoneId.systemDefault())
-            val pstTime = zonedCurrentTime.withZoneSameInstant(ZoneId.of("America/Los_Angeles"))
-
-            FILENAME = "${pstTime}.csv"
+            val pstTime1 = zonedCurrentTime.withZoneSameInstant(ZoneId.of("America/Los_Angeles"))
+            val format = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")
+            val pstTime2 = pstTime1.format(format)
+            FILENAME = "${pstTime2}.csv"
         }
         fun writeFile(context: Context, tag: String, action: String, data: String) {
             try {
