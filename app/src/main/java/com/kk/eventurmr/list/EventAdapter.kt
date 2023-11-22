@@ -59,7 +59,7 @@ class EventAdapter(context: Context, events: List<Event>, private val db: AppDat
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         db.eventDao().updateUnFavorite(event.id)
-                        val id = db.favoriteDao().getNextId()
+                        val id = db.favoriteDao().getNextId()+1
                         val uid = UserId.id
                         val eid = event.id
                         val favorite = Favorite(id,uid, eid)
