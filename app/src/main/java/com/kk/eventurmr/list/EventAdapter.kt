@@ -3,6 +3,7 @@ package com.kk.eventurmr.list
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.text.TextUtils.substring
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,11 +28,16 @@ class EventAdapter(context: Context, events: List<Event>, private val db: AppDat
         val view =
             convertView ?: LayoutInflater.from(context).inflate(R.layout.item_list, parent, false)
         val date = TimeUtil.getDateString(event?.dateTime)
-        val lastSpaceIndex = event?.description?.substring(0, 30)?.lastIndexOf(' ')
-
+        //val lastSpaceIndex = event?.description?.substring(0, 30)?.lastIndexOf(' ')
+        var description = event?.description
+        if (description != null) {
+            if (description.length > 30) {
+               val count = description.substring(0, 30)?.lastIndexOf(' ')
+                description = count?.let { description!!.substring(0, it) }
+            }
+        }
         view.findViewById<TextView>(R.id.eventTitle).text = event?.name
-        view.findViewById<TextView>(R.id.eventDescription).text =
-            lastSpaceIndex?.let { event?.description?.substring(0, it) }
+        view.findViewById<TextView>(R.id.eventDescription).text = description
         view.findViewById<TextView>(R.id.eventDate).text = date
         val eventMapImageView = view.findViewById<ImageView>(R.id.eventMap)
         eventMapImageView.isFocusable = false

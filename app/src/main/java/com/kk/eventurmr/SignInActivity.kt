@@ -76,6 +76,8 @@ class SignInActivity : AppCompatActivity() {
                     if(title.contains("2023:")) {
                         val temp = title.split("2023:")
                         title = temp[1]
+                    }else if(title.contains("2024:")){
+                        continue
                     }
                     val cdataContent = items[i].select("description").text()
                     val parsedCdata = Jsoup.parse(cdataContent)
