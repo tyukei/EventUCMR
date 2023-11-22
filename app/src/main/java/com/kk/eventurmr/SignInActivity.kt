@@ -49,12 +49,15 @@ class SignInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signin) // Set the content view to the sign-in layou
         setupViews()
         signInButton.setOnClickListener {
+            FileUtil.writeFileButton(applicationContext,TAG,"SIGNIN")
             checkIfUserIsSignedIn()
 //            val intent = intent
 //            intent.setClass(this@SignInActivity, MainActivity::class.java)
 //            startActivity(intent)
         }
         signUpButton.setOnClickListener {
+            FileUtil.writeFileButton(applicationContext,TAG,"SIGNUP")
+            FileUtil.writeFileFinishActivity(this, TAG, "SignUpActivity")
             val intent = intent
             intent.setClass(this@SignInActivity, SignUpActivity::class.java)
             startActivity(intent)
