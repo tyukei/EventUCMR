@@ -22,6 +22,7 @@ class MainActivity : BaseActivity() {
     private val TAG = "MainActivity"
     private lateinit var eventsListView: ListView
     private lateinit var refreshBtn: Button
+    private var lastaction = 0
 
     // Roomデータベースのインスタンスを作成
     private val db by lazy {
@@ -83,28 +84,37 @@ class MainActivity : BaseActivity() {
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
         //https://yusuke-hata.hatenablog.com/entry/2014/12/05/234032
         val action: Int = MotionEventCompat.getActionMasked(event)
-        return when (action) {
-            MotionEvent.ACTION_DOWN -> {
-                Log.d(TAG, "dispatchTouchEvent: ACTION_DOWN")
-                super.dispatchTouchEvent(event)
-            }
+        if(lastaction == action){
+            return super.dispatchTouchEvent(event)
+        }else {
+            lastaction = action
+            return when (action) {
+                MotionEvent.ACTION_DOWN -> {
+                    FileUtil.writeFile(applicationContext,TAG,"ACTION_DOWN","")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_DOWN")
+                    super.dispatchTouchEvent(event)
+                }
 
-            MotionEvent.ACTION_UP -> {
-                Log.d(TAG, "dispatchTouchEvent: ACTION_UP")
-                super.dispatchTouchEvent(event)
-            }
+                MotionEvent.ACTION_UP -> {
+                    FileUtil.writeFile(applicationContext,TAG,"ACTION_UP","")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_UP")
+                    super.dispatchTouchEvent(event)
+                }
 
-            MotionEvent.ACTION_MOVE -> {
-                Log.d(TAG, "dispatchTouchEvent: ACTION_MOVE")
-                super.dispatchTouchEvent(event)
-            }
+                MotionEvent.ACTION_MOVE -> {
+                    FileUtil.writeFile(applicationContext,TAG,"ACTION_MOVE","")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_MOVE")
+                    super.dispatchTouchEvent(event)
+                }
 
-            MotionEvent.ACTION_CANCEL -> {
-                Log.d(TAG, "dispatchTouchEvent: ACTION_CANCEL")
-                super.dispatchTouchEvent(event)
-            }
+                MotionEvent.ACTION_CANCEL -> {
+                    FileUtil.writeFile(applicationContext,TAG,"ACTION_CANCEL","")
+                    Log.d(TAG, "dispatchTouchEvent: ACTION_CANCEL")
+                    super.dispatchTouchEvent(event)
+                }
 
-            else -> super.dispatchTouchEvent(event)
+                else -> super.dispatchTouchEvent(event)
+            }
         }
     }
 
